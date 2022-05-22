@@ -1,11 +1,11 @@
 ﻿using Autofac;
-using DatabaseComponent.Repositories;
+using DRInformationSystem.Database;
+using DRInformationSystem.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
-namespace DatabaseComponent;
+namespace DRInformationSystem.Modules;
 
-public class DatabaseModule : Module
+public class RepositoryModule : Module
 {
 	protected override void Load(ContainerBuilder builder)
 	{
@@ -18,9 +18,9 @@ public class DatabaseModule : Module
 				optionsBuilder.UseNpgsql(connectionString);
 
 				var dbContext = new DatabaseContext(optionsBuilder.Options);
-				return new AggregatorRepositories(dbContext);
+				return new AggregatorsRepositories(dbContext);
 			})
-			.As<IAggregatorRepositories>()
+			.As<IAggregatorsRepositories>()
 			.InstancePerLifetimeScope();
 	}
 }

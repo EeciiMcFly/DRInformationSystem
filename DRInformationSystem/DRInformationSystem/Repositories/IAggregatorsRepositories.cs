@@ -1,8 +1,8 @@
-﻿using DatabaseComponent.Models;
+﻿using DRInformationSystem.Models;
 
-namespace DatabaseComponent.Repositories;
+namespace DRInformationSystem.Repositories;
 
-public interface IAggregatorRepositories
+public interface IAggregatorsRepositories
 {
 	Task<AggregatorModel> GetAggregatorByIdAsync(long id);
 

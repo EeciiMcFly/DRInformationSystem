@@ -1,7 +1,9 @@
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
-using BusinessLogicComponent;
-using DatabaseComponent;
+using DRInformationSystem.Auth;
+using DRInformationSystem.Modules;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +12,26 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	.AddJwtBearer(options =>
+	{
+		options.RequireHttpsMetadata = true;
+		options.TokenValidationParameters = new TokenValidationParameters
+		{
+			ValidateIssuer = true,
+			ValidIssuer = AuthOptions.ISSUER,
+			ValidateAudience = true,
+			ValidAudience = AuthOptions.AUDIENCE,
+			ValidateLifetime = true,
+			IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+			ValidateIssuerSigningKey = true,
+		};
+	});
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory(containerBuilder =>
 {
-	containerBuilder.RegisterModule<DatabaseModule>();
-	containerBuilder.RegisterModule<BusinessLogicModule>();
+	containerBuilder.RegisterModule<RepositoryModule>();
+	containerBuilder.RegisterModule<ServiceModule>();
 }));
 
 var app = builder.Build();

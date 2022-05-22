@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace DatabaseComponent.Models;
+namespace DRInformationSystem.Models;
 
 [Index(nameof(Login))]
 public class AggregatorModel

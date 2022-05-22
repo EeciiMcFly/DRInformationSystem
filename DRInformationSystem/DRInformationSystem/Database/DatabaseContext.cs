@@ -1,7 +1,7 @@
-﻿using DatabaseComponent.Models;
+﻿using DRInformationSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DatabaseComponent;
+namespace DRInformationSystem.Database;
 
 internal class DatabaseContext : DbContext
 {
@@ -20,7 +20,7 @@ internal class DatabaseContext : DbContext
 	{
 		if (!options.IsConfigured)
 		{
-			options.UseNpgsql("Host=localhost; Port=5432;Database=demandresponse;Username=postgres;Password=masterkey");
+			options.UseNpgsql("Host=localhost; Port=5432;Database=inform_system;Username=postgres;Password=masterkey");
 		}
 	}
 }
