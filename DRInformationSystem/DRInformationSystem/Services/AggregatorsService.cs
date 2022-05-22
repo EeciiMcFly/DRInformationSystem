@@ -10,16 +10,16 @@ namespace DRInformationSystem.Services;
 
 public class AggregatorsService : IAggregatorsService
 {
-	private readonly IAggregatorsRepositories _aggregatorsRepositories;
+	private readonly IAggregatorsRepository _aggregatorsRepository;
 
-	public AggregatorsService(IAggregatorsRepositories aggregatorsRepositories)
+	public AggregatorsService(IAggregatorsRepository aggregatorsRepository)
 	{
-		_aggregatorsRepositories = aggregatorsRepositories;
+		_aggregatorsRepository = aggregatorsRepository;
 	}
 
 	public async Task<SecurityToken> AuthorizeAggregatorAsync(string login, string password)
 	{
-		var aggregatorData = await _aggregatorsRepositories.GetAggregatorByLoginAsync(login);
+		var aggregatorData = await _aggregatorsRepository.GetAggregatorByLoginAsync(login);
 
 		if (aggregatorData == null)
 			throw new BadAuthException();

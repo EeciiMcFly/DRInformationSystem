@@ -10,5 +10,9 @@ public class ServiceModule : Module
 		builder.RegisterType<AggregatorsService>()
 			.As<IAggregatorsService>()
 			.InstancePerLifetimeScope();
+
+		builder.RegisterType<InvitesService>()
+			.As<IInvitesService>()
+			.InstancePerLifetimeScope();
 	}
 }

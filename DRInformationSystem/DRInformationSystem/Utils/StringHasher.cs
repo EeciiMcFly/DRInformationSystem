@@ -3,7 +3,7 @@ using System.Text;
 
 namespace DRInformationSystem.Utils;
 
-public class StringHasher
+public static class StringHasher
 {
 	public static string GetSha256Hash(string input)
 	{

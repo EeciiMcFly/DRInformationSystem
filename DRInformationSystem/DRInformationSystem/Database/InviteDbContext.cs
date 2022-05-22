@@ -3,18 +3,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DRInformationSystem.Database;
 
-public class DatabaseContext : DbContext
+public class InviteDbContext : DbContext
 {
-	public DatabaseContext()
+	public InviteDbContext()
 	{
 	}
 
-	public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
+	public InviteDbContext(DbContextOptions<InviteDbContext> options) : base(options)
 	{
 		Database.Migrate();
 	}
 
-	public DbSet<AggregatorModel> Aggregators { get; set; }
+	public DbSet<InviteModel> Invites { get; set; }
 
 	protected override void OnConfiguring(DbContextOptionsBuilder options)
 	{

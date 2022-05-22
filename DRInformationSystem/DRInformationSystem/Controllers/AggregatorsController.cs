@@ -1,12 +1,11 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using DRInformationSystem.Exceptions;
 using DRInformationSystem.Services;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace DRInformationSystem.Controllers;
 
 [ApiController]
-[Route("aggregators")]
 public class AggregatorsController : Controller
 {
 	private readonly IAggregatorsService _aggregatorsService;
@@ -16,24 +15,18 @@ public class AggregatorsController : Controller
 		_aggregatorsService = aggregatorsService;
 	}
 
-	[HttpGet("/auth")]
+	[HttpGet("api/v1/aggregators/auth")]
+	[SwaggerResponse(200, "Successes authorize")]
 	public async Task<IActionResult> AuthorizeAggregator([FromQuery] string login, [FromQuery] string password)
 	{
-		try
+		var token = await _aggregatorsService.AuthorizeAggregatorAsync(login, password);
+		var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
+		var response = new
 		{
-			var token = await _aggregatorsService.AuthorizeAggregatorAsync(login, password);
-			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
-			var response = new
-			{
-				access_token = encodedJwt,
-				username = login
-			};
+			access_token = encodedJwt,
+			username = login
+		};
 
-			return Json(response);
-		}
-		catch (BadAuthException badAuthException)
-		{
-			return BadRequest(new { errorText = "Invalid username or password." });
-		}
+		return Json(response);
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace DRInformationSystem.Repositories;
 
-public interface IAggregatorsRepositories
+public interface IAggregatorsRepository
 {
 	Task<AggregatorModel> GetAggregatorByIdAsync(long id);
 

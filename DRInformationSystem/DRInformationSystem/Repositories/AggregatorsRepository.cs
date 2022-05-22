@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DRInformationSystem.Repositories;
 
-internal class AggregatorsRepositories : IAggregatorsRepositories
+public class AggregatorsRepository : IAggregatorsRepository
 {
 	private readonly DatabaseContext _databaseContext;
 
-	public AggregatorsRepositories(DatabaseContext databaseContext)
+	public AggregatorsRepository(DatabaseContext databaseContext)
 	{
 		_databaseContext = databaseContext;
 	}
