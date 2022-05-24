@@ -17,5 +17,9 @@ public class SheddingModel
 
 	public long OrderId { get; set; }
 
+	public OrderModel Order { get; set; }
+
 	public long ConsumerId { get; set; }
+
+	public ConsumerModel Consumer { get; set; }
 }

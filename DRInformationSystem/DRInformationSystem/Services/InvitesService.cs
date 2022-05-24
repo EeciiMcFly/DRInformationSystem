@@ -1,4 +1,5 @@
-﻿using DRInformationSystem.Models;
+﻿using DataAccessLayer.Models;
+using DRInformationSystem.Models;
 using DRInformationSystem.Repositories;
 using DRInformationSystem.Utils;
 

@@ -1,14 +1,14 @@
-﻿using DRInformationSystem.Database;
-using DRInformationSystem.Models;
+﻿using DataAccessLayer.DbContexts;
+using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DRInformationSystem.Repositories;
 
 public class InvitesRepository : IInvitesRepository
 {
-	private readonly InviteDbContext _dbContext;
+	private readonly EntityDbContext _dbContext;
 
-	public InvitesRepository(InviteDbContext dbContext)
+	public InvitesRepository(EntityDbContext dbContext)
 	{
 		_dbContext = dbContext;
 	}

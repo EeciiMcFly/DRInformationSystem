@@ -3,18 +3,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.DbContexts;
 
-public class OrdersDbContext : DbContext
+public class EntityDbContext : DbContext
 {
-	public OrdersDbContext()
+	public EntityDbContext()
 	{
 	}
 
-	public OrdersDbContext(DbContextOptions<OrdersDbContext> options) : base(options)
+	public EntityDbContext(DbContextOptions<EntityDbContext> options) : base(options)
 	{
 		Database.Migrate();
 	}
 
+	public DbSet<AggregatorModel> Aggregators { get; set; }
+
+	public DbSet<InviteModel> Invites { get; set; }
+
 	public DbSet<OrderModel> Orders { get; set; }
+
+	public DbSet<ResponseModel> Responses { get; set; }
+
+	public DbSet<ConsumerModel> Consumers { get; set; }
+
+	public DbSet<SheddingModel> Sheddings { get; set; }
 
 	protected override void OnConfiguring(DbContextOptionsBuilder options)
 	{

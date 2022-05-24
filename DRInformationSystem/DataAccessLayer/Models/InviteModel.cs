@@ -10,6 +10,8 @@ public class InviteModel
 	public string Code { get; set; }
 
 	public bool IsActivated { get; set; }
-	
+
 	public long AggregatorId { get; set; }
+
+	public AggregatorModel Aggregator { get; set; }
 }

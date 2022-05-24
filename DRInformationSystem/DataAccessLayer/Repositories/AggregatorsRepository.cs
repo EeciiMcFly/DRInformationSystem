@@ -1,14 +1,14 @@
-﻿using DRInformationSystem.Database;
-using DRInformationSystem.Models;
+﻿using DataAccessLayer.DbContexts;
+using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DRInformationSystem.Repositories;
 
 public class AggregatorsRepository : IAggregatorsRepository
 {
-	private readonly DatabaseContext _databaseContext;
+	private readonly EntityDbContext _databaseContext;
 
-	public AggregatorsRepository(DatabaseContext databaseContext)
+	public AggregatorsRepository(EntityDbContext databaseContext)
 	{
 		_databaseContext = databaseContext;
 	}

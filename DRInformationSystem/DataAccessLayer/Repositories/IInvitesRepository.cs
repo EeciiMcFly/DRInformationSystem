@@ -1,4 +1,4 @@
-﻿using DRInformationSystem.Models;
+﻿using DataAccessLayer.Models;
 
 namespace DRInformationSystem.Repositories;
 

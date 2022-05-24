@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using DRInformationSystem.Database;
+using DataAccessLayer.DbContexts;
 using DRInformationSystem.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,10 +14,10 @@ public class RepositoryModule : Module
 				var configuration = c.Resolve<IConfiguration>();
 				var connectionString = configuration.GetConnectionString("DatabaseConnectionTemplateWithoutDbName");
 
-				var optionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
+				var optionsBuilder = new DbContextOptionsBuilder<EntityDbContext>();
 				optionsBuilder.UseNpgsql(connectionString);
 
-				var dbContext = new DatabaseContext(optionsBuilder.Options);
+				var dbContext = new EntityDbContext(optionsBuilder.Options);
 				return new AggregatorsRepository(dbContext);
 			})
 			.As<IAggregatorsRepository>()
@@ -28,10 +28,10 @@ public class RepositoryModule : Module
 				var configuration = c.Resolve<IConfiguration>();
 				var connectionString = configuration.GetConnectionString("DatabaseConnectionTemplateWithoutDbName");
 
-				var optionsBuilder = new DbContextOptionsBuilder<InviteDbContext>();
+				var optionsBuilder = new DbContextOptionsBuilder<EntityDbContext>();
 				optionsBuilder.UseNpgsql(connectionString);
 
-				var dbContext = new InviteDbContext(optionsBuilder.Options);
+				var dbContext = new EntityDbContext(optionsBuilder.Options);
 				return new InvitesRepository(dbContext);
 			})
 			.As<IInvitesRepository>()

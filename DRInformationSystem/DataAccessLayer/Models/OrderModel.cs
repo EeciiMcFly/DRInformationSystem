@@ -14,4 +14,6 @@ public class OrderModel
 	public OrderState State { get; set; }
 
 	public long AggregatorId { get; set; }
+
+	public AggregatorModel Aggregator { get; set; }
 }
