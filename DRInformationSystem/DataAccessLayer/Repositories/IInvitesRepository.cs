@@ -2,13 +2,9 @@
 
 namespace DataAccessLayer.Repositories;
 
-public interface IInvitesRepository
+public interface IInvitesRepository : ICrudRepository<InviteModel>
 {
-	public Task<InviteModel> GetInviteByCodeAsync(string code);
+	public Task<InviteModel> GetByCodeAsync(string code);
 
-	public Task<InviteModel> GetLastInvite();
-
-	public Task SaveInviteAsync(InviteModel invite);
-
-	public Task UpdateInviteAsync(InviteModel invite);
+	public Task<InviteModel> GetLastAsync();
 }

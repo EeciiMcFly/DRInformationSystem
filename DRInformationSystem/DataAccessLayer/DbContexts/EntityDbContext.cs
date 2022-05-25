@@ -11,20 +11,20 @@ public class EntityDbContext : DbContext
 
 	public EntityDbContext(DbContextOptions<EntityDbContext> options) : base(options)
 	{
-		Database.Migrate();
+		//Database.Migrate();
 	}
 
-	public DbSet<AggregatorModel> Aggregators { get; set; }
+	public virtual DbSet<AggregatorModel> Aggregators { get; set; }
 
-	public DbSet<InviteModel> Invites { get; set; }
+	public virtual DbSet<InviteModel> Invites { get; set; }
 
-	public DbSet<OrderModel> Orders { get; set; }
+	public virtual DbSet<OrderModel> Orders { get; set; }
 
-	public DbSet<ResponseModel> Responses { get; set; }
+	public virtual DbSet<ResponseModel> Responses { get; set; }
 
-	public DbSet<ConsumerModel> Consumers { get; set; }
+	public virtual DbSet<ConsumerModel> Consumers { get; set; }
 
-	public DbSet<SheddingModel> Sheddings { get; set; }
+	public virtual DbSet<SheddingModel> Sheddings { get; set; }
 
 	protected override void OnConfiguring(DbContextOptionsBuilder options)
 	{

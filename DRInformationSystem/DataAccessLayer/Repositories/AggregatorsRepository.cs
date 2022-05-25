@@ -13,7 +13,7 @@ public class AggregatorsRepository : IAggregatorsRepository
 		_databaseContext = databaseContext;
 	}
 
-	// public async Task<AggregatorModel> GetAggregatorByIdAsync(long id)
+	// public async Task<AggregatorModel> GetByIdAsync(long id)
 	// {
 	// 	var aggregatorById = await _databaseContext.Aggregators
 	// 		.FirstOrDefaultAsync(x => x.Id == id);
@@ -29,36 +29,21 @@ public class AggregatorsRepository : IAggregatorsRepository
 		return aggregatorByLogin;
 	}
 
-	// public async Task SaveAggregatorAsync(AggregatorModel aggregator)
+	// public async Task SaveAsync(AggregatorModel aggregator)
 	// {
 	// 	_databaseContext.Aggregators.Add(aggregator);
 	//
 	// 	await _databaseContext.SaveChangesAsync();
 	// }
 	//
-	// public async Task UpdateAggregatorAsync(AggregatorModel aggregator)
+	// public async Task UpdateAsync(AggregatorModel aggregator)
 	// {
 	// 	_databaseContext.Aggregators.Update(aggregator);
 	//
 	// 	await _databaseContext.SaveChangesAsync();
 	// }
 	//
-	// public async Task UpdateAggregatorsRangeAsync(List<AggregatorModel> aggregators)
-	// {
-	// 	_databaseContext.Aggregators.UpdateRange(aggregators);
-	//
-	// 	await _databaseContext.SaveChangesAsync();
-	// }
-	//
-	// public async Task DeleteAggregatorByIdAsync(long id)
-	// {
-	// 	var aggregator = await GetAggregatorByIdAsync(id);
-	// 	_databaseContext.Aggregators.Remove(aggregator);
-	//
-	// 	await _databaseContext.SaveChangesAsync();
-	// }
-	//
-	// public async Task DeleteAggregatorAsync(AggregatorModel aggregator)
+	// public async Task DeleteAsync(AggregatorModel aggregator)
 	// {
 	// 	_databaseContext.Aggregators.Remove(aggregator);
 	//

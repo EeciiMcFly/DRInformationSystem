@@ -2,10 +2,6 @@
 
 namespace DataAccessLayer.Repositories;
 
-public interface IResponsesRepository
+public interface IResponsesRepository : ICrudRepository<ResponseModel>
 {
-	Task<ResponseModel> GetByIdAsync(long id);
-	Task SaveAsync(ResponseModel response);
-	Task UpdateAsync(ResponseModel response);
-	Task DeleteAsync(ResponseModel response);
 }

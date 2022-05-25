@@ -13,7 +13,7 @@ public class InvitesRepository : IInvitesRepository
 		_dbContext = dbContext;
 	}
 
-	public async Task<InviteModel> GetInviteByCodeAsync(string code)
+	public async Task<InviteModel> GetByCodeAsync(string code)
 	{
 		var inviteModel = await _dbContext.Invites
 			.FirstOrDefaultAsync(x => x.Code.Equals(code));
@@ -21,23 +21,38 @@ public class InvitesRepository : IInvitesRepository
 		return inviteModel;
 	}
 
-	public async Task<InviteModel> GetLastInvite()
+	public async Task<InviteModel> GetLastAsync()
 	{
 		var inviteModel = await _dbContext.Invites.LastOrDefaultAsync();
 
 		return inviteModel;
 	}
 
-	public async Task SaveInviteAsync(InviteModel invite)
+	public async Task<InviteModel> GetByIdAsync(long id)
+	{
+		var inviteModel = await _dbContext.Invites
+			.FirstOrDefaultAsync(x => x.Id.Equals(id));
+
+		return inviteModel;
+	}
+
+	public async Task SaveAsync(InviteModel invite)
 	{
 		_dbContext.Invites.Add(invite);
 
 		await _dbContext.SaveChangesAsync();
 	}
 
-	public async Task UpdateInviteAsync(InviteModel invite)
+	public async Task UpdateAsync(InviteModel invite)
 	{
 		_dbContext.Invites.Update(invite);
+
+		await _dbContext.SaveChangesAsync();
+	}
+
+	public async Task DeleteAsync(InviteModel invite)
+	{
+		_dbContext.Invites.Remove(invite);
 
 		await _dbContext.SaveChangesAsync();
 	}

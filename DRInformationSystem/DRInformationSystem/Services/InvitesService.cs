@@ -16,7 +16,7 @@ public class InvitesService : IInvitesService
 
 	public async Task<bool> InviteConsumerAsync(string email)
 	{
-		var lastInvite = await _invitesRepository.GetLastInvite();
+		var lastInvite = await _invitesRepository.GetLastAsync();
 		var inviteCodeString = string.Empty;
 		inviteCodeString = lastInvite == null
 			? "1000-1001"
@@ -28,14 +28,14 @@ public class InvitesService : IInvitesService
 		};
 
 		//отправка email
-		await _invitesRepository.SaveInviteAsync(newInvite);
+		await _invitesRepository.SaveAsync(newInvite);
 
 		return true;
 	}
 
 	public async Task<ActivationResult> ActivateInviteCodeAsync(string code)
 	{
-		var invite = await _invitesRepository.GetInviteByCodeAsync(code);
+		var invite = await _invitesRepository.GetByCodeAsync(code);
 		if (invite == null)
 			return ActivationResult.CodeNotExist;
 
@@ -43,7 +43,7 @@ public class InvitesService : IInvitesService
 			return ActivationResult.AlreadyActivated;
 
 		invite.IsActivated = true;
-		await _invitesRepository.UpdateInviteAsync(invite);
+		await _invitesRepository.UpdateAsync(invite);
 
 		return ActivationResult.Successes;
 	}
