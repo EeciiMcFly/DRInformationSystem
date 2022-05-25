@@ -1,6 +1,6 @@
 ﻿using DataAccessLayer.Models;
 
-namespace DRInformationSystem.Repositories;
+namespace DataAccessLayer.Repositories;
 
 public interface IAggregatorsRepository
 {

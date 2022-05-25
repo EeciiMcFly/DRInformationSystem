@@ -1,8 +1,8 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using DataAccessLayer.Repositories;
 using DRInformationSystem.Auth;
 using DRInformationSystem.Exceptions;
-using DRInformationSystem.Repositories;
 using DRInformationSystem.Utils;
 using Microsoft.IdentityModel.Tokens;
 

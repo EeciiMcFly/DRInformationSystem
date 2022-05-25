@@ -2,7 +2,7 @@
 using DataAccessLayer.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace DRInformationSystem.Repositories;
+namespace DataAccessLayer.Repositories;
 
 public class InvitesRepository : IInvitesRepository
 {

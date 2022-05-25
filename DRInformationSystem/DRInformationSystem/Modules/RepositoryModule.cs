@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using DataAccessLayer.DbContexts;
-using DRInformationSystem.Repositories;
+using DataAccessLayer.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DRInformationSystem.Modules;
@@ -18,23 +18,34 @@ public class RepositoryModule : Module
 				optionsBuilder.UseNpgsql(connectionString);
 
 				var dbContext = new EntityDbContext(optionsBuilder.Options);
-				return new AggregatorsRepository(dbContext);
+
+				return dbContext;
 			})
+			.As<EntityDbContext>()
+			.InstancePerLifetimeScope();
+
+		builder.RegisterType<AggregatorsRepository>()
 			.As<IAggregatorsRepository>()
 			.InstancePerLifetimeScope();
 
-		builder.Register(c =>
-			{
-				var configuration = c.Resolve<IConfiguration>();
-				var connectionString = configuration.GetConnectionString("DatabaseConnectionTemplateWithoutDbName");
+		builder.RegisterType<ConsumerRepository>()
+			.As<ConsumerRepository>()
+			.InstancePerLifetimeScope();
 
-				var optionsBuilder = new DbContextOptionsBuilder<EntityDbContext>();
-				optionsBuilder.UseNpgsql(connectionString);
+		builder.RegisterType<InvitesRepository>()
+			.As<InvitesRepository>()
+			.InstancePerLifetimeScope();
 
-				var dbContext = new EntityDbContext(optionsBuilder.Options);
-				return new InvitesRepository(dbContext);
-			})
-			.As<IInvitesRepository>()
+		builder.RegisterType<OrdersRepository>()
+			.As<IOrdersRepository>()
+			.InstancePerLifetimeScope();
+
+		builder.RegisterType<ResponsesRepository>()
+			.As<IResponsesRepository>()
+			.InstancePerLifetimeScope();
+
+		builder.RegisterType<SheddingsRepository>()
+			.As<ISheddingsRepository>()
 			.InstancePerLifetimeScope();
 	}
 }
