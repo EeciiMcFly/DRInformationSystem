@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DRInformationSystem", "DRIn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{5C5F331F-E182-4C31-8D42-0BAD14AA9251}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{5E93332F-4495-48C6-B3B4-57232386A813}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +20,10 @@ Global
 		{5C5F331F-E182-4C31-8D42-0BAD14AA9251}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C5F331F-E182-4C31-8D42-0BAD14AA9251}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C5F331F-E182-4C31-8D42-0BAD14AA9251}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E93332F-4495-48C6-B3B4-57232386A813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E93332F-4495-48C6-B3B4-57232386A813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E93332F-4495-48C6-B3B4-57232386A813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E93332F-4495-48C6-B3B4-57232386A813}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

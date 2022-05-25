@@ -2,4 +2,9 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\User\.nuget\packages\autofac.extensions.dependencyinjection\7.2.0\lib\net6.0\Autofac.Extensions.DependencyInjection.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\User\.nuget\packages\autofac\6.3.0\lib\net5.0\Autofac.dll" /&gt;&#xD;
-&lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>
+&lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c7ba20e7_002De16b_002D411e_002Db466_002Dc55d0f502975/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAggregatorByLoginAsync_WhereDatabaseIsEmpty_ReturnNull" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.RepositoryTests.AggregatorsRepositoryTest.GetAggregatorByLoginAsync_WhereDatabaseIsEmpty_ReturnNull&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

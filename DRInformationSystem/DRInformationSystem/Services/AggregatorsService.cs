@@ -19,7 +19,7 @@ public class AggregatorsService : IAggregatorsService
 
 	public async Task<SecurityToken> AuthorizeAggregatorAsync(string login, string password)
 	{
-		var aggregatorData = await _aggregatorsRepository.GetAggregatorByLoginAsync(login);
+		var aggregatorData = await _aggregatorsRepository.GetByLoginAsync(login);
 
 		if (aggregatorData == null)
 			throw new BadAuthException();
