@@ -11,7 +11,7 @@ public class EntityDbContext : DbContext
 
 	public EntityDbContext(DbContextOptions<EntityDbContext> options) : base(options)
 	{
-		//Database.Migrate();
+		Database.Migrate();
 	}
 
 	public virtual DbSet<AggregatorModel> Aggregators { get; set; }
