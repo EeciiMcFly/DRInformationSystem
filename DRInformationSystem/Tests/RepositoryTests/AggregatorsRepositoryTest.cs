@@ -61,7 +61,9 @@ public class AggregatorsRepositoryTest
 		var login = "defaultLogin";
 		var expectedAggregator = new AggregatorModel
 		{
-			Login = login
+			Id = 1,
+			Login = login,
+			PasswordHash = string.Empty
 		};
 		IList<AggregatorModel> aggregators = new List<AggregatorModel> {expectedAggregator};
 		_dbContextMock.Setup(x => x.Aggregators).ReturnsDbSet(aggregators);

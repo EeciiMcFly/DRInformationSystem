@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer.DbContexts;
@@ -15,36 +14,36 @@ namespace Tests.RepositoryTests;
 [TestFixture]
 public class ConsumersRepositoryTest
 {
-	private ConsumerRepository _consumerRepository;
+	private ConsumersRepository _consumersRepository;
 	private Mock<EntityDbContext> _dbContextMock;
 
 	[SetUp]
 	public void SetUpMethod()
 	{
 		_dbContextMock = new Mock<EntityDbContext>();
-		_consumerRepository = new ConsumerRepository(_dbContextMock.Object);
+		_consumersRepository = new ConsumersRepository(_dbContextMock.Object);
 	}
 
 	[TearDown]
 	public void TearDownMethod()
 	{
-		_consumerRepository = null;
+		_consumersRepository = null;
 		_dbContextMock = null;
 	}
 
 	[Test]
-	public async Task GetAggregatorByLoginAsync_WhenDatabaseIsEmpty_ReturnNull()
+	public async Task GetByLoginAsync_WhenDatabaseIsEmpty_ReturnNull()
 	{
 		IList<ConsumerModel> consumers = new List<ConsumerModel>();
 		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers);
 
-		var actualConsumer = await _consumerRepository.GetByLoginAsync(string.Empty);
+		var actualConsumer = await _consumersRepository.GetByLoginAsync(string.Empty);
 
 		Assert.IsNull(actualConsumer);
 	}
 
 	[Test]
-	public async Task GetAggregatorByLoginAsync_WhenNoAggregatorWithThisLogin_ReturnNull()
+	public async Task GetByLoginAsync_WhenNoConsumerWithThisLogin_ReturnNull()
 	{
 		var consumerModel = new ConsumerModel
 		{
@@ -53,13 +52,13 @@ public class ConsumersRepositoryTest
 		IList<ConsumerModel> consumers = new List<ConsumerModel> {consumerModel};
 		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers);
 
-		var actualConsumer = await _consumerRepository.GetByLoginAsync(string.Empty);
+		var actualConsumer = await _consumersRepository.GetByLoginAsync(string.Empty);
 
 		Assert.IsNull(actualConsumer);
 	}
 
 	[Test]
-	public async Task GetAggregatorByLoginAsync_WhenExistAggregatorWithThisLogin_ReturnAggregator()
+	public async Task GetByLoginAsync_WhenExistConsumerWithThisLogin_ReturnConsumer()
 	{
 		var login = "defaultLogin";
 		var expectedConsumer = new ConsumerModel
@@ -69,7 +68,7 @@ public class ConsumersRepositoryTest
 		IList<ConsumerModel> consumers = new List<ConsumerModel> {expectedConsumer};
 		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers);
 
-		var actualConsumer = await _consumerRepository.GetByLoginAsync(login);
+		var actualConsumer = await _consumersRepository.GetByLoginAsync(login);
 
 		Assert.AreEqual(expectedConsumer, actualConsumer);
 	}
@@ -90,10 +89,10 @@ public class ConsumersRepositoryTest
 		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers, dbSetMock);
 		dbSetMock.Setup(m => m.Add(It.IsAny<ConsumerModel>())).Callback((ConsumerModel consumer) => consumers.Add(consumer));
 		
-		await _consumerRepository.SaveAsync(expectedConsumerModel);
-		var actualAggregator = consumers.FirstOrDefault();
+		await _consumersRepository.SaveAsync(expectedConsumerModel);
+		var actualConsumer = consumers.FirstOrDefault();
 
-		Assert.That(actualAggregator, Is.EqualTo(expectedConsumerModel));
+		Assert.That(actualConsumer, Is.EqualTo(expectedConsumerModel));
 		Assert.That(consumers.Count, Is.EqualTo(expectedCount));
 	}
 }

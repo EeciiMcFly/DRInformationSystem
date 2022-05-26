@@ -11,6 +11,7 @@ using NUnit.Framework;
 
 namespace Tests.RepositoryTests;
 
+[TestFixture]
 public class InvitesRepositoryTest
 {
 	private InvitesRepository _invitesRepository;
@@ -57,7 +58,7 @@ public class InvitesRepositoryTest
 	}
 
 	[Test]
-	public async Task GetByCodeAsync_WhenExistInviteWithThisCode_ReturnAggregator()
+	public async Task GetByCodeAsync_WhenExistInviteWithThisCode_ReturnInvite()
 	{
 		var code = "default_code";
 		var expectedInvite = new InviteModel
@@ -110,7 +111,7 @@ public class InvitesRepositoryTest
 	}
 
 	[Test]
-	public async Task GetByIdAsync_WhenNoInviteWithThisCode_ReturnNull()
+	public async Task GetByIdAsync_WhenNoInviteWithThisId_ReturnNull()
 	{
 		var inviteModel = new InviteModel
 		{
@@ -126,7 +127,7 @@ public class InvitesRepositoryTest
 	}
 
 	[Test]
-	public async Task GetByIdAsync_WhenExistInviteWithThisCode_ReturnAggregator()
+	public async Task GetByIdAsync_WhenExistInviteWithThisId_ReturnInvite()
 	{
 		var id = 1;
 		var expectedInvite = new InviteModel
@@ -179,5 +180,24 @@ public class InvitesRepositoryTest
 		await _invitesRepository.DeleteAsync(inviteModel);
 		
 		Assert.That(invites.Count, Is.EqualTo(expectedCount));
+	}
+
+	[Test]
+	public async Task UpdateAsync_WhenOneInvite_UpdateMethodCalled()
+	{
+		var expectedInviteModel = new InviteModel
+		{
+			Id = 1,
+			Code = "defaultLogin",
+		};
+		IList<InviteModel> invites = new List<InviteModel> {expectedInviteModel};
+		var dbSetMock = new Mock<DbSet<InviteModel>>();
+		_dbContextMock.Setup(x => x.Invites).ReturnsDbSet(invites, dbSetMock);
+		InviteModel actualInviteModel = null;
+		dbSetMock.Setup(m => m.Update(It.IsAny<InviteModel>())).Callback((InviteModel invite) => actualInviteModel = invite);
+
+		await _invitesRepository.UpdateAsync(expectedInviteModel);
+
+		Assert.That(actualInviteModel, Is.EqualTo(expectedInviteModel));
 	}
 }

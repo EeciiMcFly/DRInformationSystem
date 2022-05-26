@@ -2,3 +2,5 @@
 /DRInformationSystem/.idea
 /DRInformationSystem/obj
 /DRInformationSystem/DataAccessLayer/obj
+/DRInformationSystem/Tests/bin
+/DRInformationSystem/Tests/obj

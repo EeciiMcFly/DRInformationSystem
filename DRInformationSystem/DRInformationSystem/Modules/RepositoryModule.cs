@@ -28,8 +28,8 @@ public class RepositoryModule : Module
 			.As<IAggregatorsRepository>()
 			.InstancePerLifetimeScope();
 
-		builder.RegisterType<ConsumerRepository>()
-			.As<ConsumerRepository>()
+		builder.RegisterType<ConsumersRepository>()
+			.As<ConsumersRepository>()
 			.InstancePerLifetimeScope();
 
 		builder.RegisterType<InvitesRepository>()
