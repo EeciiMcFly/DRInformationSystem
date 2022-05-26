@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.Repositories;
 
-public class ConsumerRepository : IConsumersRepository
+public class ConsumersRepository : IConsumersRepository
 {
 	private readonly EntityDbContext _dbContext;
 
-	public ConsumerRepository(EntityDbContext dbContext)
+	public ConsumersRepository(EntityDbContext dbContext)
 	{
 		_dbContext = dbContext;
 	}
