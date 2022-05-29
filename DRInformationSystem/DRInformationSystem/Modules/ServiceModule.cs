@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using DRInformationSystem.Services;
+using BusinessLogicLayer.Services;
 
 namespace DRInformationSystem.Modules;
 

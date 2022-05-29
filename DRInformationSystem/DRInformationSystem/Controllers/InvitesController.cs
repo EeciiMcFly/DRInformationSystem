@@ -1,5 +1,5 @@
-﻿using DRInformationSystem.DTO;
-using DRInformationSystem.Services;
+﻿using BusinessLogicLayer.Services;
+using DRInformationSystem.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

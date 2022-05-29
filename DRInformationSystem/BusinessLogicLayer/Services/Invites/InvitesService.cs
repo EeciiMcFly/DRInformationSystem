@@ -1,9 +1,9 @@
-﻿using DataAccessLayer.Models;
+﻿using BusinessLogicLayer.Models;
+using BusinessLogicLayer.Utils;
+using DataAccessLayer.Models;
 using DataAccessLayer.Repositories;
-using DRInformationSystem.Models;
-using DRInformationSystem.Utils;
 
-namespace DRInformationSystem.Services;
+namespace BusinessLogicLayer.Services;
 
 public class InvitesService : IInvitesService
 {

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Security.Authentication;
 using System.Text.Json;
-using DRInformationSystem.Exceptions;
+using BusinessLogicLayer.Exceptions;
 using DRInformationSystem.Models;
 
 namespace DRInformationSystem.Middlewares;
@@ -47,6 +47,21 @@ public class ExceptionHandlerMiddleware
 		{
 			StatusCode = (int)HttpStatusCode.Unauthorized,
 			Message = "Invalid login or password.",
+		},
+		AlreadyUsedLoginException => new ErrorResponse
+		{
+			StatusCode = (int)HttpStatusCode.BadRequest,
+			Message = ex.Message
+		},
+		AlreadyActivatedInviteCodeException => new ErrorResponse
+		{
+			StatusCode = (int)HttpStatusCode.BadRequest,
+			Message = ex.Message
+		},
+		CodeNoExistException => new ErrorResponse
+		{
+			StatusCode = (int)HttpStatusCode.BadRequest,
+			Message = ex.Message
 		},
 		_ => new ErrorResponse
 		{

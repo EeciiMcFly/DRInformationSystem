@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAcce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{5E93332F-4495-48C6-B3B4-57232386A813}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{0452046E-D54C-44FC-BAA2-52B2BE657015}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,6 +26,10 @@ Global
 		{5E93332F-4495-48C6-B3B4-57232386A813}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E93332F-4495-48C6-B3B4-57232386A813}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E93332F-4495-48C6-B3B4-57232386A813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0452046E-D54C-44FC-BAA2-52B2BE657015}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0452046E-D54C-44FC-BAA2-52B2BE657015}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0452046E-D54C-44FC-BAA2-52B2BE657015}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0452046E-D54C-44FC-BAA2-52B2BE657015}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

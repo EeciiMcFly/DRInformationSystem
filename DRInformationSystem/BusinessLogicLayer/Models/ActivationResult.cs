@@ -1,4 +1,4 @@
-﻿namespace DRInformationSystem;
+﻿namespace BusinessLogicLayer.Models;
 
 public enum ActivationResult
 {

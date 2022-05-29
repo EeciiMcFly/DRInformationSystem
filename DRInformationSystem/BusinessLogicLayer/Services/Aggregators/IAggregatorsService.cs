@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 
-namespace DRInformationSystem.Services;
+namespace BusinessLogicLayer.Services;
 
 public interface IAggregatorsService
 {

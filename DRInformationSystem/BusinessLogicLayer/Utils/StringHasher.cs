@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace DRInformationSystem.Utils;
+namespace BusinessLogicLayer.Utils;
 
 public static class StringHasher
 {

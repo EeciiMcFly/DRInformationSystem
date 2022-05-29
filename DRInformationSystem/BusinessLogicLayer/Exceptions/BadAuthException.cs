@@ -1,4 +1,4 @@
-﻿namespace DRInformationSystem.Exceptions;
+﻿namespace BusinessLogicLayer.Exceptions;
 
 public class BadAuthException : Exception
 {

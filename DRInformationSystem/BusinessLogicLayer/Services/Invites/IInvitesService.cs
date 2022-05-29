@@ -1,4 +1,6 @@
-﻿namespace DRInformationSystem.Services;
+﻿using BusinessLogicLayer.Models;
+
+namespace BusinessLogicLayer.Services;
 
 public interface IInvitesService
 {

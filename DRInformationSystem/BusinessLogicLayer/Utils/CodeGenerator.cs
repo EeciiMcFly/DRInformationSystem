@@ -1,4 +1,4 @@
-﻿namespace DRInformationSystem.Utils;
+﻿namespace BusinessLogicLayer.Utils;
 
 public static class CodeGenerator
 {

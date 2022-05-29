@@ -11,5 +11,6 @@
     &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.RepositoryTests.InvitesRepositoryTest.GetByCodeAsync_WhenDatabaseIsEmpty_ReturnNull&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.RepositoryTests.InvitesRepositoryTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.RepositoryTests.OrdersRepositoryTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.RepositoryTests.ResponsesRepositoryTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

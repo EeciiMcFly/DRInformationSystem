@@ -1,12 +1,12 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using BusinessLogicLayer.Exceptions;
+using BusinessLogicLayer.Utils;
 using DataAccessLayer.Repositories;
 using DRInformationSystem.Auth;
-using DRInformationSystem.Exceptions;
-using DRInformationSystem.Utils;
 using Microsoft.IdentityModel.Tokens;
 
-namespace DRInformationSystem.Services;
+namespace BusinessLogicLayer.Services;
 
 public class AggregatorsService : IAggregatorsService
 {
