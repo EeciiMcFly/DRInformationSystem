@@ -21,7 +21,7 @@ public class ResponsesRepository : IResponsesRepository
 		return response;
 	}
 
-	public async Task<List<ResponseModel>> GetRangeByIdAsync(List<long> responsesId)
+	public async Task<List<ResponseModel>> GetRangeByIdsAsync(List<long> responsesId)
 	{
 		var response = await _dbContext.Responses
 			.Where(x => responsesId.Contains(x.Id))

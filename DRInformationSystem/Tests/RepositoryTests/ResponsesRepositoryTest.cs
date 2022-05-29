@@ -80,7 +80,7 @@ public class ResponsesRepositoryTest
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
 
 		var responsesIds = new List<long> {0};
-		var actualResponses = await _responsesRepository.GetRangeByIdAsync(responsesIds);
+		var actualResponses = await _responsesRepository.GetRangeByIdsAsync(responsesIds);
 
 		Assert.IsEmpty(actualResponses);
 	}
@@ -96,7 +96,7 @@ public class ResponsesRepositoryTest
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
 
 		var responsesIds = new List<long> {1};
-		var actualResponse = await _responsesRepository.GetRangeByIdAsync(responsesIds);
+		var actualResponse = await _responsesRepository.GetRangeByIdsAsync(responsesIds);
 
 		Assert.IsEmpty(actualResponse);
 	}
@@ -113,7 +113,7 @@ public class ResponsesRepositoryTest
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
 
 		var responsesIds = new List<long> {id};
-		var actualResponses = await _responsesRepository.GetRangeByIdAsync(responsesIds);
+		var actualResponses = await _responsesRepository.GetRangeByIdsAsync(responsesIds);
 		var actualResponse = actualResponses.FirstOrDefault();
 
 		Assert.IsNotEmpty(actualResponses);

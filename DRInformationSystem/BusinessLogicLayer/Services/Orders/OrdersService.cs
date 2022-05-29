@@ -52,7 +52,7 @@ public class OrdersService : IOrdersService
 	public async Task CompleteOrder(long orderId, List<long> responsesId)
 	{
 		var order = await _ordersRepository.GetByIdAsync(orderId);
-		var responses = await _responsesRepository.GetRangeByIdAsync(responsesId);
+		var responses = await _responsesRepository.GetRangeByIdsAsync(responsesId);
 		order.Responses = responses;
 		order.State = OrderState.Formatted;
 		await _ordersRepository.UpdateAsync(order);

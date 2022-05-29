@@ -23,9 +23,7 @@ public class OrdersRepository : IOrdersRepository
 
 	public async Task<List<OrderModel>> GetAsync()
 	{
-		var orders = await _dbContext.Orders.ToListAsync();
-
-		return orders;
+		return await _dbContext.Orders.ToListAsync();
 	}
 
 	public async Task<List<OrderModel>> GetAsync(OrderSearchParams searchParams)
