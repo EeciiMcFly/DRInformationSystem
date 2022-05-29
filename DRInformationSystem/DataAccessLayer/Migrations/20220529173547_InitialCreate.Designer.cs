@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(EntityDbContext))]
-    [Migration("20220524185440_Initial")]
-    partial class Initial
+    [Migration("20220529173547_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -224,7 +224,7 @@ namespace DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.HasOne("DataAccessLayer.Models.OrderModel", "Order")
-                        .WithMany()
+                        .WithMany("Responses")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -243,7 +243,7 @@ namespace DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.HasOne("DataAccessLayer.Models.OrderModel", "Order")
-                        .WithMany()
+                        .WithMany("Sheddings")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -251,6 +251,13 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Consumer");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Models.OrderModel", b =>
+                {
+                    b.Navigation("Responses");
+
+                    b.Navigation("Sheddings");
                 });
 #pragma warning restore 612, 618
         }

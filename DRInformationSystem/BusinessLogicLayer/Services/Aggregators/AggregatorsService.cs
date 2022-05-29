@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using BusinessLogicLayer.Exceptions;
 using BusinessLogicLayer.Utils;
+using DataAccessLayer.Models;
 using DataAccessLayer.Repositories;
 using DRInformationSystem.Auth;
 using Microsoft.IdentityModel.Tokens;
@@ -32,7 +33,7 @@ public class AggregatorsService : IAggregatorsService
 		var claims = new List<Claim>
 		{
 			new(ClaimsIdentity.DefaultNameClaimType, aggregatorData.Login),
-			new(ClaimsIdentity.DefaultRoleClaimType, "aggregator")
+			new(ClaimsIdentity.DefaultRoleClaimType, AuthOptions.AggregatorRole)
 		};
 		var claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
 			ClaimsIdentity.DefaultRoleClaimType);
@@ -47,5 +48,10 @@ public class AggregatorsService : IAggregatorsService
 				SecurityAlgorithms.HmacSha256));
 
 		return token;
+	}
+
+	public async Task<AggregatorModel> GetAggregatorByLoginAsync(string login)
+	{
+		return await _aggregatorsRepository.GetByLoginAsync(login);
 	}
 }

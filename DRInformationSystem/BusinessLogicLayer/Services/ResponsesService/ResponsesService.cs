@@ -4,11 +4,11 @@ using DataAccessLayer.Repositories;
 
 namespace BusinessLogicLayer.Services;
 
-public class ResponseService : IResponsesService
+public class ResponsesService : IResponsesService
 {
 	private readonly IResponsesRepository _responsesRepository;
 
-	public ResponseService(IResponsesRepository responsesRepository)
+	public ResponsesService(IResponsesRepository responsesRepository)
 	{
 		_responsesRepository = responsesRepository;
 	}

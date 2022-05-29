@@ -222,7 +222,7 @@ namespace DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.HasOne("DataAccessLayer.Models.OrderModel", "Order")
-                        .WithMany()
+                        .WithMany("Responses")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -241,7 +241,7 @@ namespace DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.HasOne("DataAccessLayer.Models.OrderModel", "Order")
-                        .WithMany()
+                        .WithMany("Sheddings")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -249,6 +249,13 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Consumer");
 
                     b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("DataAccessLayer.Models.OrderModel", b =>
+                {
+                    b.Navigation("Responses");
+
+                    b.Navigation("Sheddings");
                 });
 #pragma warning restore 612, 618
         }

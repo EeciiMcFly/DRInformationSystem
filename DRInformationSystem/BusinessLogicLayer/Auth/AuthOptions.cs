@@ -5,6 +5,8 @@ namespace DRInformationSystem.Auth;
 
 public class AuthOptions
 {
+	public const string AggregatorRole = "aggregator";
+	public const string ConsumerRole = "consumer";
 	public const string ISSUER = "DRSystemServer"; // издатель токена
 	public const string AUDIENCE = "DRSystemClient"; // потребитель токена
 	const string KEY = "system_!2022key()CrypT";   // ключ для шифрации

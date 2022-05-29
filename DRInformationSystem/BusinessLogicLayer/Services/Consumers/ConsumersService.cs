@@ -37,7 +37,7 @@ public class ConsumersService : IConsumersService
 		var claims = new List<Claim>
 		{
 			new(ClaimsIdentity.DefaultNameClaimType, consumer.Login),
-			new(ClaimsIdentity.DefaultRoleClaimType, "сoncumer")
+			new(ClaimsIdentity.DefaultRoleClaimType, AuthOptions.ConsumerRole)
 		};
 		var claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
 			ClaimsIdentity.DefaultRoleClaimType);
@@ -85,5 +85,10 @@ public class ConsumersService : IConsumersService
 	public async Task<List<ConsumerModel>> GetConsumersAsync()
 	{
 		return await _consumersRepository.GetAsync();
+	}
+
+	public async Task<ConsumerModel> GetConsumersByLoginAsync(string login)
+	{
+		return await _consumersRepository.GetByLoginAsync(login);
 	}
 }
