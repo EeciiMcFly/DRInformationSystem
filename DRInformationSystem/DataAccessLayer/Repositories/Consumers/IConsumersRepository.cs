@@ -2,9 +2,9 @@
 
 namespace DataAccessLayer.Repositories;
 
-public interface IConsumersRepository
+public interface IConsumersRepository : ICrudRepository<ConsumerModel>
 {
 	Task<ConsumerModel> GetByLoginAsync(string login);
 
-	Task SaveAsync(ConsumerModel consumer);
+	Task<List<ConsumerModel>> GetAsync();
 }

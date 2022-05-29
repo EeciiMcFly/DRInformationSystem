@@ -21,6 +21,15 @@ public class ResponsesRepository : IResponsesRepository
 		return response;
 	}
 
+	public async Task<List<ResponseModel>> GetRangeByIdAsync(List<long> responsesId)
+	{
+		var response = await _dbContext.Responses
+			.Where(x => responsesId.Contains(x.Id))
+			.ToListAsync();
+
+		return response;
+	}
+
 	public async Task SaveAsync(ResponseModel response)
 	{
 		_dbContext.Responses.Add(response);

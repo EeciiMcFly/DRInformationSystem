@@ -53,9 +53,9 @@ public class OrdersRepositoryTest
 		IList<OrderModel> orders = new List<OrderModel> {orderModel};
 		_dbContextMock.Setup(x => x.Orders).ReturnsDbSet(orders);
 
-		var actualConsumer = await _ordersRepository.GetByIdAsync(1);
+		var actualOrder = await _ordersRepository.GetByIdAsync(1);
 
-		Assert.IsNull(actualConsumer);
+		Assert.IsNull(actualOrder);
 	}
 
 	[Test]
@@ -69,9 +69,9 @@ public class OrdersRepositoryTest
 		IList<OrderModel> orders = new List<OrderModel> {expectedOrder};
 		_dbContextMock.Setup(x => x.Orders).ReturnsDbSet(orders);
 
-		var actualConsumer = await _ordersRepository.GetByIdAsync(id);
+		var actualOrder = await _ordersRepository.GetByIdAsync(id);
 
-		Assert.AreEqual(expectedOrder, actualConsumer);
+		Assert.AreEqual(expectedOrder, actualOrder);
 	}
 
 	[Test]
@@ -100,6 +100,120 @@ public class OrdersRepositoryTest
 		_dbContextMock.Setup(x => x.Orders).ReturnsDbSet(orders);
 
 		var actualOrderList = await _ordersRepository.GetAsync();
+		var actualCount = actualOrderList.Count;
+		var actualOrder = actualOrderList.FirstOrDefault();
+
+		Assert.IsNotEmpty(actualOrderList);
+		Assert.AreEqual(actualCount, expectedCount);
+		Assert.AreEqual(actualOrder, expectedOrder);
+	}
+
+	[Test]
+	public async Task GetAsync_WhenNoExitsOrderByAggregatorIdFilter_ReturnEmptyList()
+	{
+		var expectedOrder = new OrderModel
+		{
+			Id = 0,
+			State = OrderState.NotFormatted,
+			EndTimestamp = DateTime.MinValue,
+			StartTimestamp = DateTime.MinValue,
+			AggregatorId = 2,
+		};
+		IList<OrderModel> orders = new List<OrderModel> {expectedOrder};
+		_dbContextMock.Setup(x => x.Orders).ReturnsDbSet(orders);
+
+		var searchParams = new OrderSearchParams
+		{
+			AggregatorId = 1
+		};
+		var actualOrderList = await _ordersRepository.GetAsync(searchParams);
+
+		Assert.IsEmpty(actualOrderList);
+	}
+	
+	[Test]
+	public async Task GetAsync_WhenExitsOrderByAggregatorIdFilter_ReturnOrderList()
+	{
+		var expectedCount = 1;
+		var expectedOrder = new OrderModel
+		{
+			Id = 0,
+			State = OrderState.NotFormatted,
+			EndTimestamp = DateTime.MinValue,
+			StartTimestamp = DateTime.MinValue,
+			AggregatorId = 1,
+		};
+		IList<OrderModel> orders = new List<OrderModel> {expectedOrder};
+		_dbContextMock.Setup(x => x.Orders).ReturnsDbSet(orders);
+
+		var searchParams = new OrderSearchParams
+		{
+			AggregatorId = 1
+		};
+		var actualOrderList = await _ordersRepository.GetAsync(searchParams);
+		var actualCount = actualOrderList.Count;
+		var actualOrder = actualOrderList.FirstOrDefault();
+
+		Assert.IsNotEmpty(actualOrderList);
+		Assert.AreEqual(actualCount, expectedCount);
+		Assert.AreEqual(actualOrder, expectedOrder);
+	}
+	
+	[Test]
+	public async Task GetAsync_WhenNoExitsOrderByConsumerIdFilter_ReturnEmptyList()
+	{
+		var response = new ResponseModel
+		{
+			ConsumerId = 1
+		};
+		var responseList = new List<ResponseModel> {response};
+		var expectedOrder = new OrderModel
+		{
+			Id = 0,
+			State = OrderState.NotFormatted,
+			EndTimestamp = DateTime.MinValue,
+			StartTimestamp = DateTime.MinValue,
+			AggregatorId = 2,
+			Responses = responseList
+		};
+		IList<OrderModel> orders = new List<OrderModel> {expectedOrder};
+		_dbContextMock.Setup(x => x.Orders).ReturnsDbSet(orders);
+
+		var searchParams = new OrderSearchParams
+		{
+			ConsumerId = 0
+		};
+		var actualOrderList = await _ordersRepository.GetAsync(searchParams);
+
+		Assert.IsEmpty(actualOrderList);
+	}
+
+	[Test]
+	public async Task GetAsync_WhenExitsOrderByConsumerIdFilter_ReturnOrderList()
+	{
+		var response = new ResponseModel
+		{
+			ConsumerId = 1
+		};
+		var responseList = new List<ResponseModel> {response};
+		var expectedCount = 1;
+		var expectedOrder = new OrderModel
+		{
+			Id = 0,
+			State = OrderState.NotFormatted,
+			EndTimestamp = DateTime.MinValue,
+			StartTimestamp = DateTime.MinValue,
+			AggregatorId = 1,
+			Responses = responseList
+		};
+		IList<OrderModel> orders = new List<OrderModel> {expectedOrder};
+		_dbContextMock.Setup(x => x.Orders).ReturnsDbSet(orders);
+
+		var searchParams = new OrderSearchParams
+		{
+			ConsumerId = 1
+		};
+		var actualOrderList = await _ordersRepository.GetAsync(searchParams);
 		var actualCount = actualOrderList.Count;
 		var actualOrder = actualOrderList.FirstOrDefault();
 

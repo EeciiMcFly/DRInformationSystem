@@ -16,4 +16,8 @@ public class OrderModel
 	public long AggregatorId { get; set; }
 
 	public AggregatorModel Aggregator { get; set; }
+
+	public List<ResponseModel> Responses { get; set; }
+
+	public List<SheddingModel> Sheddings { get; set; }
 }

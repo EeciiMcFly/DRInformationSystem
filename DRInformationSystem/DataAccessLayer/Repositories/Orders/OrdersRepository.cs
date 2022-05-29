@@ -28,13 +28,27 @@ public class OrdersRepository : IOrdersRepository
 		return orders;
 	}
 
-	public async Task<List<OrderModel>> GetByAggregatorIdAsync(long aggregatorId)
+	public async Task<List<OrderModel>> GetAsync(OrderSearchParams searchParams)
 	{
-		var orders = await _dbContext.Orders
-			.Where(x => x.AggregatorId == aggregatorId)
-			.ToListAsync();
+		var query = _dbContext.Orders
+			.Include(x => x.Responses)
+			.Include(x => x.Sheddings)
+			.AsQueryable();
 
-		return orders;
+		var aggregatorFilterExist = searchParams.AggregatorId.HasValue;
+		var consumerFilterExist = searchParams.ConsumerId.HasValue;
+
+		if (aggregatorFilterExist)
+		{
+			query = query.Where(x => x.AggregatorId == searchParams.AggregatorId.Value);
+		}
+
+		if (consumerFilterExist)
+		{
+			query = query.Where(x => x.Responses.Any(t => t.ConsumerId == searchParams.ConsumerId.Value));
+		}
+
+		return await query.ToListAsync();
 	}
 
 	public async Task SaveAsync(OrderModel order)
