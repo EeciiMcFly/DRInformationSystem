@@ -72,8 +72,84 @@ public class ConsumersRepositoryTest
 
 		Assert.AreEqual(expectedConsumer, actualConsumer);
 	}
-	
-	
+
+	[Test]
+	public async Task GetByIdAsync_WhenDatabaseIsEmpty_ReturnNull()
+	{
+		IList<ConsumerModel> consumers = new List<ConsumerModel>();
+		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers);
+
+		var actualConsumer = await _consumersRepository.GetByIdAsync(0);
+
+		Assert.IsNull(actualConsumer);
+	}
+
+	[Test]
+	public async Task GetByIdAsync_WhenNoInviteWithThisId_ReturnNull()
+	{
+		var consumerModel = new ConsumerModel
+		{
+			Id = 0,
+			Login = "defaultLogin"
+		};
+		IList<ConsumerModel> consumers = new List<ConsumerModel> {consumerModel};
+		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers);
+
+		var actualConsumer = await _consumersRepository.GetByIdAsync(1);
+
+		Assert.IsNull(actualConsumer);
+	}
+
+	[Test]
+	public async Task GetByIdAsync_WhenExistInviteWithThisId_ReturnInvite()
+	{
+		var id = 1;
+		var expectedConsumer = new ConsumerModel
+		{
+			Id = id,
+			Login = "defaultLogin"
+		};
+		IList<ConsumerModel> consumers = new List<ConsumerModel> {expectedConsumer};
+		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers);
+
+		var actualConsumer = await _consumersRepository.GetByIdAsync(id);
+
+		Assert.AreEqual(expectedConsumer, actualConsumer);
+	}
+
+	[Test]
+	public async Task GetAsync_WhenDatabaseIsEmpty_ReturnEmptyList()
+	{
+		IList<ConsumerModel> consumer = new List<ConsumerModel>();
+		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumer);
+
+		var actualConsumerList = await _consumersRepository.GetAsync();
+
+		Assert.IsEmpty(actualConsumerList);
+	}
+
+	[Test]
+	public async Task GetAsync_WhenDatabaseIsNotEmpty_ReturnOrderList()
+	{
+		var expectedCount = 1;
+		var expectedConsumer = new ConsumerModel
+		{
+			Id = 1,
+			Login = "defaultLogin",
+			PasswordHash = string.Empty
+		};
+		IList<ConsumerModel> consumers = new List<ConsumerModel> {expectedConsumer};
+		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers);
+
+		var actualConsumerList = await _consumersRepository.GetAsync();
+		var actualCount = actualConsumerList.Count;
+		var actualConsumer = actualConsumerList.FirstOrDefault();
+
+		Assert.IsNotEmpty(actualConsumerList);
+		Assert.AreEqual(expectedCount, actualCount);
+		Assert.AreEqual(expectedConsumer, actualConsumer);
+	}
+
 	[Test]
 	public async Task SaveAsync_WhenEmptyConsumersList_NewCountIsOne()
 	{
@@ -87,12 +163,53 @@ public class ConsumersRepositoryTest
 		IList<ConsumerModel> consumers = new List<ConsumerModel>();
 		var dbSetMock = new Mock<DbSet<ConsumerModel>>();
 		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers, dbSetMock);
-		dbSetMock.Setup(m => m.Add(It.IsAny<ConsumerModel>())).Callback((ConsumerModel consumer) => consumers.Add(consumer));
-		
+		dbSetMock.Setup(m => m.Add(It.IsAny<ConsumerModel>()))
+			.Callback((ConsumerModel consumer) => consumers.Add(consumer));
+
 		await _consumersRepository.SaveAsync(expectedConsumerModel);
 		var actualConsumer = consumers.FirstOrDefault();
 
-		Assert.That(actualConsumer, Is.EqualTo(expectedConsumerModel));
-		Assert.That(consumers.Count, Is.EqualTo(expectedCount));
+		Assert.AreEqual(expectedConsumerModel, actualConsumer);
+		Assert.AreEqual(expectedCount, consumers.Count);
+	}
+
+	[Test]
+	public async Task DeleteAsync_WhenOneInvite_NewCountIsZero()
+	{
+		var expectedCount = 0;
+		var consumerModel = new ConsumerModel
+		{
+			Id = 1,
+			Login = "defaultLogin",
+		};
+		IList<ConsumerModel> consumers = new List<ConsumerModel>();
+		var dbSetMock = new Mock<DbSet<ConsumerModel>>();
+		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers, dbSetMock);
+		dbSetMock.Setup(m => m.Remove(It.IsAny<ConsumerModel>()))
+			.Callback((ConsumerModel consumer) => consumers.Remove(consumer));
+
+		await _consumersRepository.DeleteAsync(consumerModel);
+
+		Assert.AreEqual(expectedCount, consumers.Count);
+	}
+
+	[Test]
+	public async Task UpdateAsync_WhenOneInvite_UpdateMethodCalled()
+	{
+		var expectedConsumer = new ConsumerModel
+		{
+			Id = 1,
+			Login = "defaultLogin",
+		};
+		IList<ConsumerModel> consumers = new List<ConsumerModel> {expectedConsumer};
+		var dbSetMock = new Mock<DbSet<ConsumerModel>>();
+		_dbContextMock.Setup(x => x.Consumers).ReturnsDbSet(consumers, dbSetMock);
+		ConsumerModel actualConsumer = null;
+		dbSetMock.Setup(m => m.Update(It.IsAny<ConsumerModel>()))
+			.Callback((ConsumerModel consumer) => actualConsumer = consumer);
+
+		await _consumersRepository.UpdateAsync(expectedConsumer);
+
+		Assert.AreEqual(expectedConsumer, actualConsumer);
 	}
 }

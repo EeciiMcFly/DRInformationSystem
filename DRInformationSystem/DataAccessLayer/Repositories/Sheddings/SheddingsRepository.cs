@@ -21,22 +21,27 @@ public class SheddingsRepository : ISheddingsRepository
 		return shedding;
 	}
 
-	public async Task<List<SheddingModel>> GetByOrderIdAsync(long orderId)
+	public async Task<List<SheddingModel>> GetAsync(SheddingSearchParams searchParams)
 	{
-		var sheddings = await _dbContext.Sheddings
-			.Where(x => x.OrderId.Equals(orderId))
-			.ToListAsync();
+		var query = _dbContext.Sheddings
+			.Include(x => x.Order)
+			.Include(x => x.Consumer)
+			.AsQueryable();
 
-		return sheddings;
-	}
+		var isOrderFilterExist = searchParams.OrderId.HasValue;
+		var isConsumerFilterExist = searchParams.ConsumerId.HasValue;
 
-	public async Task<List<SheddingModel>> GetByOrderIdAndConsumerId(long orderId, long consumerId)
-	{
-		var sheddings = await _dbContext.Sheddings
-			.Where(x => x.OrderId.Equals(orderId) && x.ConsumerId.Equals(consumerId))
-			.ToListAsync();
+		if (isOrderFilterExist)
+		{
+			query = query.Where(x => x.OrderId == searchParams.OrderId.Value);
+		}
 
-		return sheddings;
+		if (isConsumerFilterExist)
+		{
+			query = query.Where(x => x.ConsumerId == searchParams.ConsumerId.Value);
+		}
+
+		return await query.ToListAsync();
 	}
 
 	public async Task SaveAsync(SheddingModel shedding)

@@ -105,9 +105,9 @@ public class InvitesRepositoryTest
 		IList<InviteModel> invites = new List<InviteModel>();
 		_dbContextMock.Setup(x => x.Invites).ReturnsDbSet(invites);
 
-		var actualConsumer = await _invitesRepository.GetByIdAsync(0);
+		var actualInvite = await _invitesRepository.GetByIdAsync(0);
 
-		Assert.IsNull(actualConsumer);
+		Assert.IsNull(actualInvite);
 	}
 
 	[Test]
@@ -121,9 +121,9 @@ public class InvitesRepositoryTest
 		IList<InviteModel> invites = new List<InviteModel> {inviteModel};
 		_dbContextMock.Setup(x => x.Invites).ReturnsDbSet(invites);
 
-		var actualConsumer = await _invitesRepository.GetByIdAsync(1);
+		var actualInvite = await _invitesRepository.GetByIdAsync(1);
 
-		Assert.IsNull(actualConsumer);
+		Assert.IsNull(actualInvite);
 	}
 
 	[Test]
@@ -137,9 +137,9 @@ public class InvitesRepositoryTest
 		IList<InviteModel> invites = new List<InviteModel> {expectedInvite};
 		_dbContextMock.Setup(x => x.Invites).ReturnsDbSet(invites);
 
-		var actualConsumer = await _invitesRepository.GetByIdAsync(id);
+		var actualInvite = await _invitesRepository.GetByIdAsync(id);
 
-		Assert.AreEqual(expectedInvite, actualConsumer);
+		Assert.AreEqual(expectedInvite, actualInvite);
 	}
 
 	[Test]
@@ -159,10 +159,10 @@ public class InvitesRepositoryTest
 		await _invitesRepository.SaveAsync(expectedInviteModel);
 		var actualInvite = invites.FirstOrDefault();
 
-		Assert.That(actualInvite, Is.EqualTo(expectedInviteModel));
-		Assert.That(invites.Count, Is.EqualTo(expectedCount));
+		Assert.AreEqual(expectedInviteModel, actualInvite);
+		Assert.AreEqual(expectedCount, invites.Count);
 	}
-	
+
 	[Test]
 	public async Task DeleteAsync_WhenOneInvite_NewCountIsZero()
 	{
@@ -175,11 +175,12 @@ public class InvitesRepositoryTest
 		IList<InviteModel> invites = new List<InviteModel> {inviteModel};
 		var dbSetMock = new Mock<DbSet<InviteModel>>();
 		_dbContextMock.Setup(x => x.Invites).ReturnsDbSet(invites, dbSetMock);
-		dbSetMock.Setup(m => m.Remove(It.IsAny<InviteModel>())).Callback((InviteModel invite) => invites.Remove(invite));
+		dbSetMock.Setup(m => m.Remove(It.IsAny<InviteModel>()))
+			.Callback((InviteModel invite) => invites.Remove(invite));
 
 		await _invitesRepository.DeleteAsync(inviteModel);
-		
-		Assert.That(invites.Count, Is.EqualTo(expectedCount));
+
+		Assert.AreEqual(expectedCount, invites.Count);
 	}
 
 	[Test]
@@ -194,10 +195,11 @@ public class InvitesRepositoryTest
 		var dbSetMock = new Mock<DbSet<InviteModel>>();
 		_dbContextMock.Setup(x => x.Invites).ReturnsDbSet(invites, dbSetMock);
 		InviteModel actualInviteModel = null;
-		dbSetMock.Setup(m => m.Update(It.IsAny<InviteModel>())).Callback((InviteModel invite) => actualInviteModel = invite);
+		dbSetMock.Setup(m => m.Update(It.IsAny<InviteModel>()))
+			.Callback((InviteModel invite) => actualInviteModel = invite);
 
 		await _invitesRepository.UpdateAsync(expectedInviteModel);
 
-		Assert.That(actualInviteModel, Is.EqualTo(expectedInviteModel));
+		Assert.AreEqual(expectedInviteModel, actualInviteModel);
 	}
 }

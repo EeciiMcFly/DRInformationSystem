@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DataAccessLayer.DbContexts;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Moq;
 using Moq.EntityFrameworkCore;
 using NUnit.Framework;
@@ -35,9 +37,9 @@ public class ResponsesRepositoryTest
 		IList<ResponseModel> responses = new List<ResponseModel>();
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
 
-		var actualResponses = await _responsesRepository.GetByIdAsync(0);
+		var actualResponse = await _responsesRepository.GetByIdAsync(0);
 
-		Assert.IsNull(actualResponses);
+		Assert.IsNull(actualResponse);
 	}
 
 	[Test]
@@ -69,5 +71,114 @@ public class ResponsesRepositoryTest
 		var actualResponse = await _responsesRepository.GetByIdAsync(id);
 
 		Assert.AreEqual(expectedResponse, actualResponse);
+	}
+
+	[Test]
+	public async Task GetRangeByIdAsync_WhenDatabaseIsEmpty_ReturnEmptyList()
+	{
+		IList<ResponseModel> responses = new List<ResponseModel>();
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
+
+		var responsesIds = new List<long> {0};
+		var actualResponses = await _responsesRepository.GetRangeByIdAsync(responsesIds);
+
+		Assert.IsEmpty(actualResponses);
+	}
+
+	[Test]
+	public async Task GetRangeByIdAsync_WhenNoResponsesWithThisId_ReturnEmptyList()
+	{
+		var responseModel = new ResponseModel
+		{
+			Id = 0,
+		};
+		IList<ResponseModel> responses = new List<ResponseModel> {responseModel};
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
+
+		var responsesIds = new List<long> {1};
+		var actualResponse = await _responsesRepository.GetRangeByIdAsync(responsesIds);
+
+		Assert.IsEmpty(actualResponse);
+	}
+
+	[Test]
+	public async Task GetRangeByIdAsync_WhenExistResponseWithThisId_ReturnResponse()
+	{
+		var id = 1;
+		var expectedResponse = new ResponseModel
+		{
+			Id = id
+		};
+		IList<ResponseModel> responses = new List<ResponseModel> {expectedResponse};
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
+
+		var responsesIds = new List<long> {id};
+		var actualResponses = await _responsesRepository.GetRangeByIdAsync(responsesIds);
+		var actualResponse = actualResponses.FirstOrDefault();
+
+		Assert.IsNotEmpty(actualResponses);
+		Assert.AreEqual(actualResponse, expectedResponse);
+	}
+
+	[Test]
+	public async Task SaveAsync_WhenEmptyResponseList_NewCountIsOne()
+	{
+		var expectedCount = 1;
+		var expectedResponseModel = new ResponseModel
+		{
+			Id = 1,
+			ReduceData = new List<long> {0}
+		};
+		IList<ResponseModel> responses = new List<ResponseModel>();
+		var dbSetMock = new Mock<DbSet<ResponseModel>>();
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses, dbSetMock);
+		dbSetMock.Setup(m => m.Add(It.IsAny<ResponseModel>()))
+			.Callback((ResponseModel response) => responses.Add(response));
+
+		await _responsesRepository.SaveAsync(expectedResponseModel);
+		var actualResponse = responses.FirstOrDefault();
+
+		Assert.AreEqual(expectedResponseModel, actualResponse);
+		Assert.AreEqual(expectedCount, responses.Count);
+	}
+
+	[Test]
+	public async Task DeleteAsync_WhenOneInvite_NewCountIsZero()
+	{
+		var expectedCount = 0;
+		var responseModel = new ResponseModel
+		{
+			Id = 1,
+			ReduceData = new List<long> {0}
+		};
+		IList<ResponseModel> responses = new List<ResponseModel>();
+		var dbSetMock = new Mock<DbSet<ResponseModel>>();
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses, dbSetMock);
+		dbSetMock.Setup(m => m.Remove(It.IsAny<ResponseModel>()))
+			.Callback((ResponseModel response) => responses.Remove(response));
+
+		await _responsesRepository.DeleteAsync(responseModel);
+
+		Assert.AreEqual(expectedCount, responses.Count);
+	}
+
+	[Test]
+	public async Task UpdateAsync_WhenOneInvite_UpdateMethodCalled()
+	{
+		var expectedResponseModel = new ResponseModel
+		{
+			Id = 1,
+			ReduceData = new List<long> {0}
+		};
+		IList<ResponseModel> responses = new List<ResponseModel> {expectedResponseModel};
+		var dbSetMock = new Mock<DbSet<ResponseModel>>();
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses, dbSetMock);
+		ResponseModel actualResponseModel = null;
+		dbSetMock.Setup(m => m.Update(It.IsAny<ResponseModel>()))
+			.Callback((ResponseModel response) => actualResponseModel = response);
+
+		await _responsesRepository.UpdateAsync(expectedResponseModel);
+
+		Assert.AreEqual(expectedResponseModel, actualResponseModel);
 	}
 }

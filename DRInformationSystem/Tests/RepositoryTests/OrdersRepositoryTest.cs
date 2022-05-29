@@ -104,8 +104,8 @@ public class OrdersRepositoryTest
 		var actualOrder = actualOrderList.FirstOrDefault();
 
 		Assert.IsNotEmpty(actualOrderList);
-		Assert.AreEqual(actualCount, expectedCount);
-		Assert.AreEqual(actualOrder, expectedOrder);
+		Assert.AreEqual(expectedCount, actualCount);
+		Assert.AreEqual(expectedOrder, actualOrder);
 	}
 
 	[Test]
@@ -130,7 +130,7 @@ public class OrdersRepositoryTest
 
 		Assert.IsEmpty(actualOrderList);
 	}
-	
+
 	[Test]
 	public async Task GetAsync_WhenExitsOrderByAggregatorIdFilter_ReturnOrderList()
 	{
@@ -155,10 +155,10 @@ public class OrdersRepositoryTest
 		var actualOrder = actualOrderList.FirstOrDefault();
 
 		Assert.IsNotEmpty(actualOrderList);
-		Assert.AreEqual(actualCount, expectedCount);
-		Assert.AreEqual(actualOrder, expectedOrder);
+		Assert.AreEqual(expectedCount, actualCount);
+		Assert.AreEqual(expectedOrder, actualOrder);
 	}
-	
+
 	[Test]
 	public async Task GetAsync_WhenNoExitsOrderByConsumerIdFilter_ReturnEmptyList()
 	{
@@ -218,8 +218,8 @@ public class OrdersRepositoryTest
 		var actualOrder = actualOrderList.FirstOrDefault();
 
 		Assert.IsNotEmpty(actualOrderList);
-		Assert.AreEqual(actualCount, expectedCount);
-		Assert.AreEqual(actualOrder, expectedOrder);
+		Assert.AreEqual(expectedCount, actualCount);
+		Assert.AreEqual(expectedOrder, actualOrder);
 	}
 
 	[Test]
@@ -241,8 +241,8 @@ public class OrdersRepositoryTest
 		await _ordersRepository.SaveAsync(expectedOrder);
 		var actualOrder = orders.FirstOrDefault();
 
-		Assert.That(actualOrder, Is.EqualTo(expectedOrder));
-		Assert.That(orders.Count, Is.EqualTo(expectedCount));
+		Assert.AreEqual(expectedOrder, actualOrder);
+		Assert.AreEqual(expectedCount, orders.Count);
 	}
 
 	[Test]
@@ -263,7 +263,7 @@ public class OrdersRepositoryTest
 
 		await _ordersRepository.DeleteAsync(expectedOrder);
 
-		Assert.That(orders.Count, Is.EqualTo(expectedCount));
+		Assert.AreEqual(expectedCount, orders.Count);
 	}
 
 	[Test]
@@ -280,10 +280,11 @@ public class OrdersRepositoryTest
 		var dbSetMock = new Mock<DbSet<OrderModel>>();
 		_dbContextMock.Setup(x => x.Orders).ReturnsDbSet(orders, dbSetMock);
 		OrderModel actualOrderModel = null;
-		dbSetMock.Setup(m => m.Update(It.IsAny<OrderModel>())).Callback((OrderModel order) => actualOrderModel = order);
+		dbSetMock.Setup(m => m.Update(It.IsAny<OrderModel>()))
+			.Callback((OrderModel order) => actualOrderModel = order);
 
 		await _ordersRepository.UpdateAsync(expectedOrder);
 
-		Assert.That(actualOrderModel, Is.EqualTo(expectedOrder));
+		Assert.AreEqual(expectedOrder, actualOrderModel);
 	}
 }

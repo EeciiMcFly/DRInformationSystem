@@ -35,15 +35,15 @@ public class OrdersRepository : IOrdersRepository
 			.Include(x => x.Sheddings)
 			.AsQueryable();
 
-		var aggregatorFilterExist = searchParams.AggregatorId.HasValue;
-		var consumerFilterExist = searchParams.ConsumerId.HasValue;
+		var isAggregatorFilterExist = searchParams.AggregatorId.HasValue;
+		var isConsumerFilterExist = searchParams.ConsumerId.HasValue;
 
-		if (aggregatorFilterExist)
+		if (isAggregatorFilterExist)
 		{
 			query = query.Where(x => x.AggregatorId == searchParams.AggregatorId.Value);
 		}
 
-		if (consumerFilterExist)
+		if (isConsumerFilterExist)
 		{
 			query = query.Where(x => x.Responses.Any(t => t.ConsumerId == searchParams.ConsumerId.Value));
 		}
