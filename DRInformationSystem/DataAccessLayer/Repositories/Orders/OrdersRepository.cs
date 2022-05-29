@@ -37,14 +37,13 @@ public class OrdersRepository : IOrdersRepository
 		var isConsumerFilterExist = searchParams.ConsumerId.HasValue;
 
 		if (isAggregatorFilterExist)
-		{
-			query = query.Where(x => x.AggregatorId == searchParams.AggregatorId.Value);
-		}
+			query = query
+				.Where(x => x.AggregatorId == searchParams.AggregatorId.Value);
 
 		if (isConsumerFilterExist)
-		{
-			query = query.Where(x => x.Responses.Any(t => t.ConsumerId == searchParams.ConsumerId.Value));
-		}
+			query = query
+				.Where(x => x.Responses
+					.Any(t => t.ConsumerId == searchParams.ConsumerId.Value));
 
 		return await query.ToListAsync();
 	}

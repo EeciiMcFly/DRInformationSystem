@@ -42,7 +42,7 @@ public class OrdersService : IOrdersService
 		{
 			StartTimestamp = orderData.PeriodStart,
 			EndTimestamp = orderData.PeriodEnd,
-			State = orderData.State,
+			State = OrderState.NotFormatted,
 			AggregatorId = orderData.AggregatorId
 		};
 
