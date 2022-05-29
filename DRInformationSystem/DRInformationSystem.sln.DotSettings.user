@@ -5,7 +5,12 @@
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\User\AppData\Local\JetBrains\Rider2021.3\resharper-host\temp\Rider\vAny\CoverageData\_DRInformationSystem.1170905553\Snapshot\snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=032b8d7b_002De855_002D41aa_002Da90c_002D8fdaaae68177/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAsync_WhenExitsOrderByConsumerIdFilter_ReturnOrderList" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;ProjectFolder&gt;5E93332F-4495-48C6-B3B4-57232386A813/d:RepositoryTests&lt;/ProjectFolder&gt;&#xD;
+  &lt;Or&gt;&#xD;
+    &lt;ProjectFolder&gt;5E93332F-4495-48C6-B3B4-57232386A813/d:RepositoryTests&lt;/ProjectFolder&gt;&#xD;
+    &lt;TestAncestor&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.ModelTests.ModelImmutableTest&lt;/TestId&gt;&#xD;
+    &lt;/TestAncestor&gt;&#xD;
+  &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c7ba20e7_002De16b_002D411e_002Db466_002Dc55d0f502975/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAggregatorByLoginAsync_WhereDatabaseIsEmpty_ReturnNull" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;

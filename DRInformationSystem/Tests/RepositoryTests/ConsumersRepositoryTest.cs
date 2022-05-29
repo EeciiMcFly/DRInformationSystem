@@ -129,7 +129,7 @@ public class ConsumersRepositoryTest
 	}
 
 	[Test]
-	public async Task GetAsync_WhenDatabaseIsNotEmpty_ReturnOrderList()
+	public async Task GetAsync_WhenDatabaseIsNotEmpty_ReturnConsumerList()
 	{
 		var expectedCount = 1;
 		var expectedConsumer = new ConsumerModel
