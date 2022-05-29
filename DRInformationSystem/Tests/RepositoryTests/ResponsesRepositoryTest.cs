@@ -49,6 +49,7 @@ public class ResponsesRepositoryTest
 		{
 			Id = 0,
 		};
+
 		IList<ResponseModel> responses = new List<ResponseModel> {responseModel};
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
 
@@ -65,6 +66,7 @@ public class ResponsesRepositoryTest
 		{
 			Id = id
 		};
+
 		IList<ResponseModel> responses = new List<ResponseModel> {expectedResponse};
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
 
@@ -92,6 +94,7 @@ public class ResponsesRepositoryTest
 		{
 			Id = 0,
 		};
+
 		IList<ResponseModel> responses = new List<ResponseModel> {responseModel};
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
 
@@ -109,6 +112,7 @@ public class ResponsesRepositoryTest
 		{
 			Id = id
 		};
+
 		IList<ResponseModel> responses = new List<ResponseModel> {expectedResponse};
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
 
@@ -121,6 +125,104 @@ public class ResponsesRepositoryTest
 	}
 
 	[Test]
+	public async Task GetAsync_WhenNoExitsResponseByOrderIdFilter_ReturnEmptyList()
+	{
+		var response = new ResponseModel
+		{
+			OrderId = 1,
+			ConsumerId = 1
+		};
+
+		IList<ResponseModel> responses = new List<ResponseModel> {response};
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
+
+		var searchParams = new ResponseSearchParams
+		{
+			OrderId = 0
+		};
+
+		var actualOrderList = await _responsesRepository.GetAsync(searchParams);
+
+		Assert.IsEmpty(actualOrderList);
+	}
+
+	[Test]
+	public async Task GetAsync_WhenExitsResponseByOrderIdFilter_ReturnResponseList()
+	{
+		var expectedCount = 1;
+		var expectedResponse = new ResponseModel
+		{
+			OrderId = 1,
+			ConsumerId = 1
+		};
+
+		IList<ResponseModel> responses = new List<ResponseModel> {expectedResponse};
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
+
+		var searchParams = new ResponseSearchParams
+		{
+			OrderId = 1
+		};
+
+		var actualResponseList = await _responsesRepository.GetAsync(searchParams);
+		var actualCount = actualResponseList.Count;
+		var actualResponse = actualResponseList.FirstOrDefault();
+
+		Assert.IsNotEmpty(actualResponseList);
+		Assert.AreEqual(expectedCount, actualCount);
+		Assert.AreEqual(expectedResponse, actualResponse);
+	}
+
+	[Test]
+	public async Task GetAsync_WhenNoExitsResponseByConsumerIdFilter_ReturnEmptyList()
+	{
+		var response = new ResponseModel
+		{
+			OrderId = 1,
+			ConsumerId = 1
+		};
+
+		IList<ResponseModel> responses = new List<ResponseModel> {response};
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
+
+		var searchParams = new ResponseSearchParams
+		{
+			ConsumerId = 0
+		};
+
+		var actualOrderList = await _responsesRepository.GetAsync(searchParams);
+
+		Assert.IsEmpty(actualOrderList);
+	}
+
+	[Test]
+	public async Task GetAsync_WhenExitsResponseByConsumerIdFilter_ReturnResponseList()
+	{
+		var expectedCount = 1;
+		var expectedResponse = new ResponseModel
+		{
+			OrderId = 1,
+			ConsumerId = 1
+		};
+
+		IList<ResponseModel> responses = new List<ResponseModel> {expectedResponse};
+		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses);
+
+		var searchParams = new ResponseSearchParams
+		{
+			ConsumerId = 1
+		};
+
+		var actualResponseList = await _responsesRepository.GetAsync(searchParams);
+		var actualCount = actualResponseList.Count;
+		var actualResponse = actualResponseList.FirstOrDefault();
+
+		Assert.IsNotEmpty(actualResponseList);
+		Assert.AreEqual(expectedCount, actualCount);
+		Assert.AreEqual(expectedResponse, actualResponse);
+	}
+
+	[Test]
 	public async Task SaveAsync_WhenEmptyResponseList_NewCountIsOne()
 	{
 		var expectedCount = 1;
@@ -129,6 +231,7 @@ public class ResponsesRepositoryTest
 			Id = 1,
 			ReduceData = new List<long> {0}
 		};
+
 		IList<ResponseModel> responses = new List<ResponseModel>();
 		var dbSetMock = new Mock<DbSet<ResponseModel>>();
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses, dbSetMock);
@@ -151,6 +254,7 @@ public class ResponsesRepositoryTest
 			Id = 1,
 			ReduceData = new List<long> {0}
 		};
+
 		IList<ResponseModel> responses = new List<ResponseModel>();
 		var dbSetMock = new Mock<DbSet<ResponseModel>>();
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses, dbSetMock);
@@ -170,6 +274,7 @@ public class ResponsesRepositoryTest
 			Id = 1,
 			ReduceData = new List<long> {0}
 		};
+
 		IList<ResponseModel> responses = new List<ResponseModel> {expectedResponseModel};
 		var dbSetMock = new Mock<DbSet<ResponseModel>>();
 		_dbContextMock.Setup(x => x.Responses).ReturnsDbSet(responses, dbSetMock);

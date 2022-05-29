@@ -21,6 +21,25 @@ public class ResponsesRepository : IResponsesRepository
 		return response;
 	}
 
+	public async Task<List<ResponseModel>> GetAsync(ResponseSearchParams searchParams)
+	{
+		var query = _dbContext.Responses
+			.Include(x => x.Consumer)
+			.Include(x => x.Order)
+			.AsQueryable();
+
+		var isOrderIdFilterExist = searchParams.OrderId.HasValue;
+		var isConsumerIdFilterExist = searchParams.ConsumerId.HasValue;
+
+		if (isOrderIdFilterExist)
+			query = query.Where(x => x.OrderId == searchParams.OrderId.Value);
+
+		if (isConsumerIdFilterExist)
+			query = query.Where(x => x.ConsumerId == searchParams.ConsumerId.Value);
+
+		return await query.ToListAsync();
+	}
+
 	public async Task<List<ResponseModel>> GetRangeByIdsAsync(List<long> responsesId)
 	{
 		var response = await _dbContext.Responses

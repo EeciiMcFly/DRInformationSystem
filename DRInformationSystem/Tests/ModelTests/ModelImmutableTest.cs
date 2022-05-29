@@ -90,6 +90,7 @@ public class ModelImmutableTest
 			Login = "login",
 			PasswordHash = "password"
 		};
+
 		var expectedResponseList = new List<ResponseModel>();
 		var expectedSheddingList = new List<SheddingModel>();
 
@@ -137,11 +138,13 @@ public class ModelImmutableTest
 		const long expectedId = 0;
 		var expectedReduceData = new List<long>
 			{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
+
 		const long expectedOrderId = 0;
 		var expectedOrderModel = new OrderModel
 		{
 			Id = expectedOrderId,
 		};
+
 		const long expectedConsumerId = 0;
 		var expectedConsumer = new ConsumerModel
 		{
@@ -157,13 +160,29 @@ public class ModelImmutableTest
 			ConsumerId = expectedConsumerId,
 			Consumer = expectedConsumer
 		};
-		
+
 		Assert.AreEqual(expectedId, response.Id);
 		Assert.AreEqual(expectedReduceData, response.ReduceData);
 		Assert.AreEqual(expectedOrderId, response.OrderId);
 		Assert.AreEqual(expectedOrderModel, response.Order);
 		Assert.AreEqual(expectedConsumerId, response.ConsumerId);
 		Assert.AreEqual(expectedConsumer, response.Consumer);
+	}
+
+	[Test]
+	public void ResponseSearchParamsImmutableTest()
+	{
+		const long expectedOrderId = 0;
+		const long expectedConsumerId = 0;
+
+		var responseSearchParams = new ResponseSearchParams
+		{
+			OrderId = expectedOrderId,
+			ConsumerId = expectedConsumerId
+		};
+
+		Assert.AreEqual(expectedOrderId, responseSearchParams.OrderId.Value);
+		Assert.AreEqual(expectedConsumerId, responseSearchParams.ConsumerId.Value);
 	}
 
 	[Test]
@@ -179,6 +198,7 @@ public class ModelImmutableTest
 		{
 			Id = expectedOrderId,
 		};
+
 		const long expectedConsumerId = 0;
 		var expectedConsumer = new ConsumerModel
 		{
@@ -197,7 +217,7 @@ public class ModelImmutableTest
 			ConsumerId = expectedConsumerId,
 			Consumer = expectedConsumer
 		};
-		
+
 		Assert.AreEqual(expectedId, shedding.Id);
 		Assert.AreEqual(expectedStartTimestamp, shedding.StartTimestamp);
 		Assert.AreEqual(expectedDuration, shedding.Duration);
@@ -220,7 +240,7 @@ public class ModelImmutableTest
 			OrderId = expectedConsumerId,
 			ConsumerId = expectedConsumerId
 		};
-		
+
 		Assert.AreEqual(expectedOrderId, sheddingSearchParams.OrderId.Value);
 		Assert.AreEqual(expectedConsumerId, sheddingSearchParams.ConsumerId.Value);
 	}
