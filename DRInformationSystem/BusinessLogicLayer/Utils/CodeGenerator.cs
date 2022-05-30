@@ -11,6 +11,10 @@ public static class CodeGenerator
 			secondPart = 1001;
 			firstPart += 1;
 		}
+		else
+		{
+			secondPart += 1;
+		}
 
 		var code = $"{firstPart}-{secondPart}";
 		return code;

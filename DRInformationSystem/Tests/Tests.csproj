@@ -22,4 +22,8 @@
     <ProjectReference Include="..\DRInformationSystem\DRInformationSystem.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ServiceTests" />
+  </ItemGroup>
+
 </Project>

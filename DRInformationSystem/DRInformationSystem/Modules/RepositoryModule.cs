@@ -29,11 +29,11 @@ public class RepositoryModule : Module
 			.InstancePerLifetimeScope();
 
 		builder.RegisterType<ConsumersRepository>()
-			.As<ConsumersRepository>()
+			.As<IConsumersRepository>()
 			.InstancePerLifetimeScope();
 
 		builder.RegisterType<InvitesRepository>()
-			.As<InvitesRepository>()
+			.As<IInvitesRepository>()
 			.InstancePerLifetimeScope();
 
 		builder.RegisterType<OrdersRepository>()

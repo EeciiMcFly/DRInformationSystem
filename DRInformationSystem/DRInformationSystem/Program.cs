@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
 using Autofac.Extensions.DependencyInjection;
 using Autofac;
-using DRInformationSystem.Auth;
+using BusinessLogicLayer.Auth;
 using DRInformationSystem.Middlewares;
 using DRInformationSystem.Modules;
 using DRInformationSystem.RequestValidators;
@@ -61,6 +61,13 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllers();
+});
+
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
@@ -71,8 +78,4 @@ if (app.Environment.IsDevelopment())
 	});
 }
 app.UseMiddleware<ExceptionHandlerMiddleware>();
-app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller}/{action=Index}/{id?}");
-app.MapFallbackToFile("index.html");
 app.Run();

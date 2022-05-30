@@ -4,11 +4,12 @@
   &lt;Assembly Path="C:\Users\User\.nuget\packages\autofac\6.3.0\lib\net5.0\Autofac.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String>
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\User\AppData\Local\JetBrains\Rider2021.3\resharper-host\temp\Rider\vAny\CoverageData\_DRInformationSystem.1170905553\Snapshot\snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=032b8d7b_002De855_002D41aa_002Da90c_002D8fdaaae68177/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAsync_WhenExitsOrderByConsumerIdFilter_ReturnOrderList" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=032b8d7b_002De855_002D41aa_002Da90c_002D8fdaaae68177/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAsync_WhenExitsOrderByConsumerIdFilter_ReturnOrderList" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Or&gt;&#xD;
     &lt;ProjectFolder&gt;5E93332F-4495-48C6-B3B4-57232386A813/d:RepositoryTests&lt;/ProjectFolder&gt;&#xD;
     &lt;TestAncestor&gt;&#xD;
       &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.ModelTests.ModelImmutableTest&lt;/TestId&gt;&#xD;
+      &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.UtilTests.StringHasherTest.GetSha256Hash_ReturnHashString&lt;/TestId&gt;&#xD;
     &lt;/TestAncestor&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
@@ -21,5 +22,13 @@
     &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.RepositoryTests.OrdersRepositoryTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.RepositoryTests.ResponsesRepositoryTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.RepositoryTests.SheddingsRepositoryTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.UtilTests.StringHasherTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.UtilTests.CodeGeneratorTest.GenerateInviteCodeTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.UtilTests.CodeGeneratorTest&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ded4e22b_002D5b95_002D4616_002D8cfd_002Df969c406bc02/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="StringHasherTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::5E93332F-4495-48C6-B3B4-57232386A813::net6.0::Tests.UtilTests.StringHasherTest&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
