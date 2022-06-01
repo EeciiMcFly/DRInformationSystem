@@ -2,7 +2,7 @@
 
 public class CreateResponseData
 {
-	public long ConsumerId { get; set; }
-	public long OrderId { get; set; }
-	public List<long> ReduceData { get; set; }
+	public long ConsumerId { get; init; }
+	public long OrderId { get; init; }
+	public List<long> ReduceData { get; init; }
 }

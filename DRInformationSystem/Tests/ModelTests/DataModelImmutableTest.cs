@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace Tests.ModelTests;
 
 [TestFixture]
-public class ModelImmutableTest
+public class DataModelImmutableTest
 {
 	[Test]
 	public void AggregatorModelImmutableTest()

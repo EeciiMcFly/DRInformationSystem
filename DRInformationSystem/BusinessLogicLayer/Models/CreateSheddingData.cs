@@ -2,9 +2,9 @@
 
 public class CreateSheddingData
 {
-	public DateTime StartTime { get; set; }
-	public long Duration { get; set; }
-	public long Volume { get; set; }
-	public long OrderId { get; set; }
-	public long ConsumerId { get; set; }
+	public DateTime StartTime { get; init; }
+	public long Duration { get; init; }
+	public long Volume { get; init; }
+	public long OrderId { get; init; }
+	public long ConsumerId { get; init; }
 }

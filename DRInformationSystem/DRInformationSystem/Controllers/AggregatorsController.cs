@@ -15,7 +15,7 @@ public class AggregatorsController : Controller
 		_aggregatorsService = aggregatorsService;
 	}
 
-	[HttpGet("api/v1/aggregators/auth")]
+	[HttpGet("api/v1/aggregator/auth")]
 	[SwaggerResponse(200, "Successes authorize")]
 	public async Task<IActionResult> AuthorizeAggregator([FromQuery] string login, [FromQuery] string password)
 	{

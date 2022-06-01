@@ -63,13 +63,10 @@ public class ConsumersService : IConsumersService
 		var activationResult = await _invitesService.ActivateInviteCodeAsync(registerData.InviteCode);
 		if (activationResult != ActivationResult.Successes)
 		{
-			switch (activationResult)
-			{
-				case ActivationResult.AlreadyActivated:
-					throw new AlreadyActivatedInviteCodeException(registerData.InviteCode);
-				case ActivationResult.CodeNotExist:
-					throw new CodeNoExistException(registerData.InviteCode);
-			}
+			if (activationResult == ActivationResult.AlreadyActivated)
+				throw new AlreadyActivatedInviteCodeException(registerData.InviteCode);
+
+			throw new CodeNoExistException(registerData.InviteCode);
 		}
 
 		var passwordHash = StringHasher.GetSha256Hash(registerData.Password);
