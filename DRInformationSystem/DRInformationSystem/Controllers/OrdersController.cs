@@ -5,6 +5,7 @@ using BusinessLogicLayer.Services;
 using DRInformationSystem.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace DRInformationSystem.Controllers;
 
@@ -28,7 +29,8 @@ public class OrdersController : Controller
 	}
 
 	[Authorize(Roles = AuthOptions.AggregatorRole)]
-	[HttpGet("api/v1/aggregator/orders")]
+	[HttpGet("api/v1/aggregators/orders")]
+	[SwaggerResponse(200, "List of orders for aggregator user", typeof(OrderDto))]
 	public async Task<IActionResult> GetAggregatorOrders()
 	{
 		var aggregatorLogin = User.Identity.Name;
@@ -40,7 +42,8 @@ public class OrdersController : Controller
 	}
 
 	[Authorize(Roles = AuthOptions.ConsumerRole)]
-	[HttpGet("api/v1/consumer/orders")]
+	[HttpGet("api/v1/consumers/orders")]
+	[SwaggerResponse(200, "List of orders for consumer user", typeof(OrderDto))]
 	public async Task<IActionResult> GetConsumerOrders()
 	{
 		var consumerLogin = User.Identity.Name;
@@ -52,17 +55,23 @@ public class OrdersController : Controller
 	}
 
 	[Authorize(Roles = AuthOptions.AggregatorRole)]
-	[HttpPost("api/v1/aggregator/orders")]
+	[HttpPost("api/v1/aggregators/orders")]
+	[SwaggerResponse(200, "Successes creation")]
 	public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto createOrderDto)
 	{
+		var aggregatorLogin = User.Identity.Name;
+		var aggregator = await _aggregatorsService.GetAggregatorByLoginAsync(aggregatorLogin);
 		var createOrderData = _mapper.Map<CreateOrderData>(createOrderDto);
+		createOrderData.AggregatorId = aggregator.Id;
+
 		await _ordersService.CreateOrder(createOrderData);
 
 		return Ok();
 	}
 
 	[Authorize(Roles = AuthOptions.AggregatorRole)]
-	[HttpPut("api/v1/aggregator/orders")]
+	[HttpPut("api/v1/aggregators/orders")]
+	[SwaggerResponse(200, "Successes update")]
 	public async Task<IActionResult> CompleteOrder([FromBody] CompleteOrderDto completeOrderDto)
 	{
 		await _ordersService.CompleteOrder(completeOrderDto.OrderId, completeOrderDto.ResponseIds);
@@ -72,6 +81,7 @@ public class OrdersController : Controller
 
 	[Authorize(Roles = AuthOptions.AggregatorRole)]
 	[HttpDelete("api/v1/aggregator/orders")]
+	[SwaggerResponse(200, "Successes deletion")]
 	public async Task<IActionResult> DeleteOrder([FromQuery] long orderId)
 	{
 		await _ordersService.DeleteOrder(orderId);

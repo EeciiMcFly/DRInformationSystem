@@ -24,7 +24,7 @@ public class ExceptionHandlerMiddleware
 		catch (Exception ex)
 		{
 			await HandleExceptionMessageAsync(context, ex);
-				
+
 			throw;
 		}
 	}
@@ -45,27 +45,47 @@ public class ExceptionHandlerMiddleware
 	{
 		BadAuthException => new ErrorResponse
 		{
-			StatusCode = (int)HttpStatusCode.Unauthorized,
+			StatusCode = (int) HttpStatusCode.Unauthorized,
 			Message = "Invalid login or password.",
 		},
 		AlreadyUsedLoginException => new ErrorResponse
 		{
-			StatusCode = (int)HttpStatusCode.BadRequest,
+			StatusCode = (int) HttpStatusCode.BadRequest,
 			Message = ex.Message
 		},
 		AlreadyActivatedInviteCodeException => new ErrorResponse
 		{
-			StatusCode = (int)HttpStatusCode.BadRequest,
+			StatusCode = (int) HttpStatusCode.BadRequest,
 			Message = ex.Message
 		},
 		CodeNoExistException => new ErrorResponse
 		{
-			StatusCode = (int)HttpStatusCode.BadRequest,
+			StatusCode = (int) HttpStatusCode.BadRequest,
+			Message = ex.Message
+		},
+		NotExistedOrderException => new ErrorResponse
+		{
+			StatusCode = (int) HttpStatusCode.BadRequest,
+			Message = ex.Message
+		},
+		EmptyResponsesListForCompleteOrderException => new ErrorResponse
+		{
+			StatusCode = (int) HttpStatusCode.BadRequest,
+			Message = ex.Message
+		},
+		NotExistedConsumerException => new ErrorResponse
+		{
+			StatusCode = (int) HttpStatusCode.BadRequest,
+			Message = ex.Message
+		},
+		NotExistedResponseException => new ErrorResponse
+		{
+			StatusCode = (int) HttpStatusCode.BadRequest,
 			Message = ex.Message
 		},
 		_ => new ErrorResponse
 		{
-			StatusCode = (int)HttpStatusCode.InternalServerError,
+			StatusCode = (int) HttpStatusCode.InternalServerError,
 			Message = "Internal server error.",
 		},
 	};

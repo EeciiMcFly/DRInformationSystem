@@ -2,7 +2,7 @@
 
 public class CreateOrderData
 {
-	public DateTime PeriodStart { get; init; }
-	public DateTime PeriodEnd { get; init; }
-	public long AggregatorId { get; init; }
+	public DateTime PeriodStart { get; set; }
+	public DateTime PeriodEnd { get; set; }
+	public long AggregatorId { get; set; }
 }

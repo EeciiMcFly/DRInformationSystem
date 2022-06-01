@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Models;
+﻿using BusinessLogicLayer.Exceptions;
+using BusinessLogicLayer.Models;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repositories;
 
@@ -52,7 +53,13 @@ public class OrdersService : IOrdersService
 	public async Task CompleteOrder(long orderId, List<long> responsesId)
 	{
 		var order = await _ordersRepository.GetByIdAsync(orderId);
+		if (order == null)
+			throw new NotExistedOrderException(orderId);
+
 		var responses = await _responsesRepository.GetRangeByIdsAsync(responsesId);
+		if (!responses.Any())
+			throw new EmptyResponsesListForCompleteOrderException();
+
 		order.Responses = responses;
 		order.State = OrderState.Formatted;
 		await _ordersRepository.UpdateAsync(order);
@@ -61,6 +68,9 @@ public class OrdersService : IOrdersService
 	public async Task DeleteOrder(long orderId)
 	{
 		var order = await _ordersRepository.GetByIdAsync(orderId);
+		if (order == null)
+			throw new NotExistedOrderException(orderId);
+
 		await _ordersRepository.DeleteAsync(order);
 	}
 }
