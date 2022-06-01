@@ -55,7 +55,7 @@ public class OrdersController : Controller
 	}
 
 	[Authorize(Roles = AuthOptions.AggregatorRole)]
-	[HttpPost("api/v1/aggregators/orders")]
+	[HttpPost("api/v1/orders")]
 	[SwaggerResponse(200, "Successes creation")]
 	public async Task<IActionResult> CreateOrder([FromBody] CreateOrderDto createOrderDto)
 	{
@@ -70,7 +70,7 @@ public class OrdersController : Controller
 	}
 
 	[Authorize(Roles = AuthOptions.AggregatorRole)]
-	[HttpPut("api/v1/aggregators/orders")]
+	[HttpPut("api/v1/orders")]
 	[SwaggerResponse(200, "Successes update")]
 	public async Task<IActionResult> CompleteOrder([FromBody] CompleteOrderDto completeOrderDto)
 	{
@@ -80,7 +80,7 @@ public class OrdersController : Controller
 	}
 
 	[Authorize(Roles = AuthOptions.AggregatorRole)]
-	[HttpDelete("api/v1/aggregator/orders")]
+	[HttpDelete("api/v1/orders")]
 	[SwaggerResponse(200, "Successes deletion")]
 	public async Task<IActionResult> DeleteOrder([FromQuery] long orderId)
 	{

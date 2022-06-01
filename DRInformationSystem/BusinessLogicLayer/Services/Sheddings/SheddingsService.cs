@@ -1,4 +1,5 @@
-﻿using BusinessLogicLayer.Models;
+﻿using BusinessLogicLayer.Exceptions;
+using BusinessLogicLayer.Models;
 using DataAccessLayer.Models;
 using DataAccessLayer.Repositories;
 
@@ -7,10 +8,16 @@ namespace BusinessLogicLayer.Services;
 public class SheddingsService : ISheddingsService
 {
 	private readonly ISheddingsRepository _sheddingsRepository;
+	private readonly IOrdersRepository _ordersRepository;
+	private readonly IConsumersRepository _consumersRepository;
 
-	public SheddingsService(ISheddingsRepository sheddingsRepository)
+	public SheddingsService(ISheddingsRepository sheddingsRepository,
+		IOrdersRepository ordersRepository,
+		IConsumersRepository consumersRepository)
 	{
 		_sheddingsRepository = sheddingsRepository;
+		_ordersRepository = ordersRepository;
+		_consumersRepository = consumersRepository;
 	}
 
 	public async Task<List<SheddingModel>> GetSheddingForAggregatorOrder(long orderId)
@@ -36,6 +43,14 @@ public class SheddingsService : ISheddingsService
 
 	public async Task CreateShedding(CreateSheddingData createData)
 	{
+		var order = await _ordersRepository.GetByIdAsync(createData.OrderId);
+		if (order == null)
+			throw new NotExistedOrderException(createData.OrderId);
+
+		var consumer = await _consumersRepository.GetByIdAsync(createData.ConsumerId);
+		if (consumer == null)
+			throw new NotExistedConsumerException(createData.ConsumerId);
+
 		var shedding = new SheddingModel
 		{
 			StartTimestamp = createData.StartTime,
@@ -49,17 +64,33 @@ public class SheddingsService : ISheddingsService
 		await _sheddingsRepository.SaveAsync(shedding);
 	}
 
-	public async Task SetNewStatusForShedding(long sheddingId, SheddingState sheddingState)
+	public async Task SetNewStatusForShedding(long sheddingId, SheddingState newSheddingState)
 	{
 		var shedding = await _sheddingsRepository.GetByIdAsync(sheddingId);
-		shedding.Status = sheddingState;
+		if (shedding == null)
+			throw new NotExistedSheddingException(sheddingId);
 
-		await _sheddingsRepository.UpdateAsync(shedding);
+		switch (shedding.Status)
+		{
+			case SheddingState.Planned when newSheddingState != SheddingState.Prepared:
+				throw new NoValidNewStateForSheddingException(shedding.Status, newSheddingState);
+			case SheddingState.Prepared when newSheddingState != SheddingState.Approved:
+				throw new NoValidNewStateForSheddingException(shedding.Status, newSheddingState);
+			case SheddingState.Approved when newSheddingState != SheddingState.Confirmed:
+				throw new NoValidNewStateForSheddingException(shedding.Status, newSheddingState);
+			default:
+				shedding.Status = newSheddingState;
+
+				await _sheddingsRepository.UpdateAsync(shedding);
+				break;
+		}
 	}
 
 	public async Task DeleteShedding(long sheddingId)
 	{
 		var shedding = await _sheddingsRepository.GetByIdAsync(sheddingId);
+		if (shedding == null)
+			throw new NotExistedSheddingException(sheddingId);
 
 		await _sheddingsRepository.DeleteAsync(shedding);
 	}
