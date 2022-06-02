@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace DRInformationSystem.RequestValidators;
 
-public class CreateOrderValidation : AbstractValidator<CreateOrderDto>
+public class CreateOrderValidator : AbstractValidator<CreateOrderDto>
 {
-	public CreateOrderValidation()
+	public CreateOrderValidator()
 	{
 		RuleFor(x => x.PeriodStart)
 			.NotEmpty();

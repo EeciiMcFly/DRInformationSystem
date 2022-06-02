@@ -40,9 +40,7 @@ public class AggregatorsServiceTest
 			.ReturnsAsync(() => null);
 
 		Assert.ThrowsAsync<BadAuthException>(async () => await _aggregatorsService.AuthorizeAggregatorAsync(
-			string.Empty,
-			string
-				.Empty));
+			string.Empty, string.Empty));
 	}
 
 	[Test]
