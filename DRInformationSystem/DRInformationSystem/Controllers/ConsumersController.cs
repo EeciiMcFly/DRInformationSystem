@@ -1,8 +1,10 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using AutoMapper;
+using BusinessLogicLayer.Auth;
 using BusinessLogicLayer.Models;
 using BusinessLogicLayer.Services;
 using DRInformationSystem.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -36,7 +38,8 @@ public class ConsumersController : Controller
 		return Json(response);
 	}
 
-	[HttpPost("api/v1/consumers/register")]
+	[HttpPost("api/v1/consumers")]
+	[Authorize(Roles = AuthOptions.AggregatorRole)]
 	[SwaggerResponse(200, "Successes registration")]
 	[SwaggerResponse(400, "Incorrect registration data")]
 	public async Task<IActionResult> RegisterConsumer([FromBody] RegistrationConsumerDto registrationConsumerDto)
@@ -48,6 +51,7 @@ public class ConsumersController : Controller
 	}
 
 	[HttpGet("api/v1/consumers")]
+	[Authorize]
 	[SwaggerResponse(200, "List of consumers", typeof(ConsumerDto))]
 	public async Task<IActionResult> GetConsumers()
 	{

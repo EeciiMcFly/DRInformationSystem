@@ -9,12 +9,15 @@ public class OrdersService : IOrdersService
 {
 	private readonly IOrdersRepository _ordersRepository;
 	private readonly IResponsesRepository _responsesRepository;
+	private readonly IAggregatorsRepository _aggregatorsRepository;
 
 	public OrdersService(IOrdersRepository ordersRepository,
-		IResponsesRepository responsesRepository)
+		IResponsesRepository responsesRepository,
+		IAggregatorsRepository aggregatorsRepository)
 	{
 		_ordersRepository = ordersRepository;
 		_responsesRepository = responsesRepository;
+		_aggregatorsRepository = aggregatorsRepository;
 	}
 
 	public async Task<List<OrderModel>> GetOrdersForAggregatorAsync(long aggregatorId)
@@ -39,6 +42,10 @@ public class OrdersService : IOrdersService
 
 	public async Task CreateOrder(CreateOrderData orderData)
 	{
+		var aggregator = await _aggregatorsRepository.GetByIdAsync(orderData.AggregatorId);
+		if (aggregator == null)
+			throw new NotExistedAggregatorException(orderData.AggregatorId);
+
 		var orderModel = new OrderModel
 		{
 			StartTimestamp = orderData.PeriodStart,

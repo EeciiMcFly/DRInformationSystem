@@ -1,12 +1,13 @@
-﻿using BusinessLogicLayer.Services;
+﻿using BusinessLogicLayer.Auth;
+using BusinessLogicLayer.Services;
 using DRInformationSystem.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace DRInformationSystem.Controllers;
 
 [ApiController]
-[Route("api/v1/invites")]
 public class InvitesController : Controller
 {
 	private readonly IInvitesService _invitesService;
@@ -16,7 +17,8 @@ public class InvitesController : Controller
 		_invitesService = invitesService;
 	}
 
-	[HttpPost("/invite-consumer")]
+	[HttpPost("api/v1/invites")]
+	[Authorize(Roles = AuthOptions.AggregatorRole)]
 	[SwaggerResponse(200, "Invite created")]
 	public async Task<IActionResult> CreateInvite([FromBody] CreateInviteDto createInviteDto)
 	{

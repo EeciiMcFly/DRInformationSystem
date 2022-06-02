@@ -1,5 +1,4 @@
-﻿using System.Net.Mail;
-using DRInformationSystem.DTO;
+﻿using DRInformationSystem.DTO;
 using FluentValidation;
 
 namespace DRInformationSystem.RequestValidators;
@@ -10,9 +9,9 @@ public class CreateInviteValidator : AbstractValidator<CreateInviteDto>
 	{
 		RuleFor(invite => invite.Email).NotNull()
 			.WithMessage("Email address is required.");
-		RuleFor(invite => invite.Email).Matches(@"^[^@\s]+@[^@\s]+\.[^@\s]+$")
-			.WithMessage("Email is not correct");
-		RuleFor(invite => invite.Email).Must(x => MailAddress.TryCreate(x, out var mailAddress))
+
+		RuleFor(invite => invite.Email)
+			.EmailAddress()
 			.WithMessage("Email is not correct");
 	}
 }

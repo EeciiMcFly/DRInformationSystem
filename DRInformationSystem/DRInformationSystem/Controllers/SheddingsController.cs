@@ -73,7 +73,7 @@ public class SheddingsController : Controller
 	[Authorize(Roles = AuthOptions.AggregatorRole)]
 	public async Task<IActionResult> DeleteShedding([FromQuery] long sheddingId)
 	{
-		await _sheddingsService.DeleteShedding(sheddingId);
+		await _sheddingsService.DeleteSheddingAsync(sheddingId);
 
 		return Ok();
 	}

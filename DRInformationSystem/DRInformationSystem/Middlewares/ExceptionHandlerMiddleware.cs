@@ -83,6 +83,16 @@ public class ExceptionHandlerMiddleware
 			StatusCode = (int) HttpStatusCode.BadRequest,
 			Message = ex.Message
 		},
+		NotExistedSheddingException => new ErrorResponse
+		{
+			StatusCode = (int) HttpStatusCode.BadRequest,
+			Message = ex.Message
+		},
+		NoValidNewStateForSheddingException => new ErrorResponse
+		{
+			StatusCode = (int) HttpStatusCode.BadRequest,
+			Message = ex.Message
+		},
 		_ => new ErrorResponse
 		{
 			StatusCode = (int) HttpStatusCode.InternalServerError,

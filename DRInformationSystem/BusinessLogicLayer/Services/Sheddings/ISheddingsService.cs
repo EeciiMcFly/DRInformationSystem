@@ -9,5 +9,5 @@ public interface ISheddingsService
 	Task<List<SheddingModel>> GetSheddingForConsumerOrder(long orderId, long consumerId);
 	Task CreateShedding(CreateSheddingData createData);
 	Task SetNewStatusForShedding(long sheddingId, SheddingState newSheddingState);
-	Task DeleteShedding(long sheddingId);
+	Task DeleteSheddingAsync(long sheddingId);
 }

@@ -47,6 +47,7 @@ public class AggregatorsRepositoryTest
 		{
 			Login = "defaultLogin"
 		};
+
 		IList<AggregatorModel> aggregators = new List<AggregatorModel> {aggregatorModel};
 		_dbContextMock.Setup(x => x.Aggregators).ReturnsDbSet(aggregators);
 
@@ -65,10 +66,46 @@ public class AggregatorsRepositoryTest
 			Login = login,
 			PasswordHash = string.Empty
 		};
+
 		IList<AggregatorModel> aggregators = new List<AggregatorModel> {expectedAggregator};
 		_dbContextMock.Setup(x => x.Aggregators).ReturnsDbSet(aggregators);
 
 		var actualAggregator = await _aggregatorsRepository.GetByLoginAsync(login);
+
+		Assert.AreEqual(expectedAggregator, actualAggregator);
+	}
+
+	[Test]
+	public async Task GetByIdAsync_WhenNoAggregatorWithThisId_ReturnNull()
+	{
+		var aggregatorModel = new AggregatorModel
+		{
+			Id = 0
+		};
+
+		IList<AggregatorModel> aggregators = new List<AggregatorModel> {aggregatorModel};
+		_dbContextMock.Setup(x => x.Aggregators).ReturnsDbSet(aggregators);
+
+		var actualAggregator = await _aggregatorsRepository.GetByIdAsync(1);
+
+		Assert.IsNull(actualAggregator);
+	}
+
+	[Test]
+	public async Task GetByIdAsync_WhenExistAggregatorWithThisId_ReturnAggregator()
+	{
+		const int id = 0;
+		var expectedAggregator = new AggregatorModel
+		{
+			Id = id,
+			Login = "login",
+			PasswordHash = string.Empty
+		};
+
+		IList<AggregatorModel> aggregators = new List<AggregatorModel> {expectedAggregator};
+		_dbContextMock.Setup(x => x.Aggregators).ReturnsDbSet(aggregators);
+
+		var actualAggregator = await _aggregatorsRepository.GetByIdAsync(id);
 
 		Assert.AreEqual(expectedAggregator, actualAggregator);
 	}

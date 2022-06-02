@@ -86,7 +86,7 @@ public class SheddingsService : ISheddingsService
 		}
 	}
 
-	public async Task DeleteShedding(long sheddingId)
+	public async Task DeleteSheddingAsync(long sheddingId)
 	{
 		var shedding = await _sheddingsRepository.GetByIdAsync(sheddingId);
 		if (shedding == null)
